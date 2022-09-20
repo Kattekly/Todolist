@@ -5,7 +5,7 @@ import {FilerValueType} from "./App";
 type TodoListPropsType = {
     title: string
     tasks: Array<TasksType>
-    removeTask: (taskId: number) => void
+    removeTask: (id: number) => void
     changeFilter: (filter: FilerValueType) => void
 }
 
@@ -18,10 +18,8 @@ export type TasksType = {
 const TodoList = (props: TodoListPropsType) => {
     const taskList = props.tasks.map((t) => {
         return (
-            <li key={t.id}>
-                <input type="checkbox" checked={t.isDone}/>
-                <span>{t.title}</span>
-                <button onClick={() => props.removeTask(t.id)}>x</button>
+            <li key={t.id}><input type="checkbox" checked={t.isDone}/><span>{t.title}</span>
+                <button onClick={() => props.removeTask(t.id)}>✖</button>
             </li>)
     })
 

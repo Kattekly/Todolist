@@ -13,8 +13,8 @@ function App() {
         {id: 4, title: "Redux", isDone: false}
     ])
 
-    const removeTask = (taskId: number) => {
-        setTask(tasks.filter((t) => t.id !== taskId))
+    const removeTask = (id: number) => {
+        setTask(tasks.filter((t) => t.id !== id))
     }
 
     const [filter, setFilter] = useState<FilerValueType>('all')
