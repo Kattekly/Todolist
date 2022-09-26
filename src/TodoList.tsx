@@ -5,12 +5,13 @@ import {FilerValueType} from "./App";
 type TodoListPropsType = {
     title: string
     tasks: Array<TasksType>
-    removeTask: (id: number) => void
+    removeTask: (id: string) => void
     changeFilter: (filter: FilerValueType) => void
+    addTask: (title: string) => void
 }
 
 export type TasksType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -28,7 +29,7 @@ const TodoList = (props: TodoListPropsType) => {
             <h3>{props.title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <button onClick={() => props.addTask('My task')}>+</button>
             </div>
             <ul>
                 {taskList}
