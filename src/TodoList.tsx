@@ -18,15 +18,21 @@ export type TasksType = {
 
 const TodoList = (props: TodoListPropsType) => {
     const [title, setTitle] = useState<string>('')
-
     const taskList = props.tasks.map((t) => {
+        const removeTasks = () => props.removeTask(t.id)
         return (
             <li key={t.id}><input type="checkbox" checked={t.isDone}/><span>{t.title}</span>
-                <button onClick={() => props.removeTask(t.id)}>✖</button>
+                <button onClick={removeTasks}>✖</button>
             </li>)
     })
 
-    const addTask = () => {props.addTask(title); setTitle('')}
+    const addTask = () => {
+        props.addTask(title);
+        setTitle('')
+    }
+
+    const handlerCreator = (filter: FilerValueType) => () => props.changeFilter(filter)
+
 
     return (
         <div>
@@ -41,9 +47,9 @@ const TodoList = (props: TodoListPropsType) => {
                 {taskList}
             </ul>
             <div>
-                <button onClick={() => props.changeFilter("all")}>All</button>
-                <button onClick={() => props.changeFilter("active")}>Active</button>
-                <button onClick={() => props.changeFilter("completed")}>Completed</button>
+                <button onClick={handlerCreator('all')}>All</button>
+                <button onClick={handlerCreator("active")}>Active</button>
+                <button onClick={handlerCreator("completed")}>Completed</button>
             </div>
         </div>
     );

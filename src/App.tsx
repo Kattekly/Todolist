@@ -31,19 +31,22 @@ function App() {
         }
         setTask([newTask, ...tasks])
     }
+const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
+    let tasksForTodolist = t;
+    if (f === "active") {
+        tasksForTodolist = t.filter(t => !t.isDone)
+    }
+    if (f === "completed") {
+        tasksForTodolist = t.filter(t => t.isDone)
+    }
+    return tasksForTodolist
+}
 
-    let tasksForTodolist = tasks;
-    if (filter === "active") {
-        tasksForTodolist = tasks.filter(t => t.isDone === false)
-    }
-    if (filter === "completed") {
-        tasksForTodolist = tasks.filter(t => t.isDone === true)
-    }
 
     return (
         <div className="App">
             <TodoList title={todoListTitle}
-                      tasks={tasksForTodolist}
+                      tasks={getFilteredTasks(tasks, filter)}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}/>
