@@ -22,12 +22,15 @@ const TodoList = (props: TodoListPropsType) => {
         const removeTasks = () => props.removeTask(t.id)
         return (
             <li key={t.id}><input type="checkbox" checked={t.isDone}/><span>{t.title}</span>
-                <button onClick={removeTasks}>✖</button>
+                <button onClick={removeTasks}>x</button>
             </li>)
     })
 
     const addTask = () => {
-        props.addTask(title);
+        const trimmedTitle = title.trim()
+        if (trimmedTitle !== '') {
+            props.addTask(trimmedTitle)
+        }
         setTitle('')
     }
 
