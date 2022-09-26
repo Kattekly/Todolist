@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FilerValueType} from "./App";
 
 
@@ -17,6 +17,8 @@ export type TasksType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
+    const [title, setTitle] = useState<string>('')
+
     const taskList = props.tasks.map((t) => {
         return (
             <li key={t.id}><input type="checkbox" checked={t.isDone}/><span>{t.title}</span>
@@ -24,12 +26,18 @@ const TodoList = (props: TodoListPropsType) => {
             </li>)
     })
 
+    const addTask = () => {
+        props.addTask(title)
+        setTitle('')
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <button onClick={() => props.addTask('My task')}>+</button>
+                <input value={title} onChange={(e) => setTitle(e.currentTarget.value)}
+                onKeyDown={(e) => e.key === 'Enter' && addTask()}/>
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {taskList}
