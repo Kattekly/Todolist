@@ -26,17 +26,15 @@ const TodoList = (props: TodoListPropsType) => {
             </li>)
     })
 
-    const addTask = () => {
-        props.addTask(title)
-        setTitle('')
-    }
+    const addTask = () => {props.addTask(title); setTitle('')}
 
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input value={title} onChange={(e) => setTitle(e.currentTarget.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addTask()}/>
+                <input value={title}
+                       onChange={(e) => setTitle(e.currentTarget.value)}
+                       onKeyDown={(e) => e.key === 'Enter' && addTask()}/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
