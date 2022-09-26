@@ -26,10 +26,18 @@ const TodoList = (props: TodoListPropsType) => {
             </li>)
     })
 
-    const addTask = () => {
+   /* const addTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
             props.addTask(trimmedTitle)
+        }
+        setTitle('')
+    }*/
+
+    const addTask = () => {
+        const trimmedTitle = title.trim()
+        if (title) {
+            props.addTask(title)
         }
         setTitle('')
     }
