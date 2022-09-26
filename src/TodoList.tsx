@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {FilerValueType} from "./App";
 
 
@@ -33,14 +33,17 @@ const TodoList = (props: TodoListPropsType) => {
 
     const handlerCreator = (filter: FilerValueType) => () => props.changeFilter(filter)
 
+    const onEnterDownAddTask = () => (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTask()
+    const onChangeSetTitle = () => (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+
 
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
                 <input value={title}
-                       onChange={(e) => setTitle(e.currentTarget.value)}
-                       onKeyDown={(e) => e.key === 'Enter' && addTask()}/>
+                       onChange={onChangeSetTitle}
+                       onKeyDown={onEnterDownAddTask}/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
