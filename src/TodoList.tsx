@@ -5,6 +5,7 @@ import {FilerValueType} from "./App";
 type TodoListPropsType = {
     title: string
     tasks: Array<TasksType>
+    filter: FilerValueType
     removeTask: (id: string) => void
     changeFilter: (filter: FilerValueType) => void
     addTask: (title: string) => void
@@ -21,10 +22,11 @@ const TodoList = (props: TodoListPropsType) => {
     const [title, setTitle] = useState<string>('')
     const taskList = props.tasks.map((t) => {
         const removeTasks = () => props.removeTask(t.id)
-const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked)
+        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked)
 
         return (
-            <li key={t.id}><input onChange={changeTaskStatus}
+            <li key={t.id} className={t.isDone ? "isDone" : "notIsDone"}>
+                <input onChange={changeTaskStatus}
                                   type="checkbox"
                                   checked={t.isDone}/><span>{t.title}</span>
                 <button onClick={removeTasks}>x</button>
@@ -56,9 +58,9 @@ const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskS
                 {taskList}
             </ul>
             <div>
-                <button onClick={handlerCreator('all')}>All</button>
-                <button onClick={handlerCreator("active")}>Active</button>
-                <button onClick={handlerCreator("completed")}>Completed</button>
+                <button className={props.filter === "all" ? "activeButton": ""} onClick={handlerCreator('all')}>All</button>
+                <button className={props.filter === "active" ? "activeButton": ""} onClick={handlerCreator("active")}>Active</button>
+                <button className={props.filter === "completed" ? "activeButton": ""} onClick={handlerCreator("completed")}>Completed</button>
             </div>
         </div>
     );
