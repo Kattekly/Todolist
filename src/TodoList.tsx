@@ -21,10 +21,10 @@ const TodoList = (props: TodoListPropsType) => {
     const [title, setTitle] = useState<string>('')
     const taskList = props.tasks.map((t) => {
         const removeTasks = () => props.removeTask(t.id)
-
+const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked)
 
         return (
-            <li key={t.id}><input onChange={(e) => props.changeTaskStatus(t.id, e.currentTarget.checked)}
+            <li key={t.id}><input onChange={changeTaskStatus}
                                   type="checkbox"
                                   checked={t.isDone}/><span>{t.title}</span>
                 <button onClick={removeTasks}>x</button>
