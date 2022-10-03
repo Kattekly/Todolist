@@ -29,4 +29,10 @@
   border-radius: 2px;
   padding: 3px;
   margin-right: 3px;
+  border: none;
+}
+
+.error {
+  border: 2px solid darkred;
+  outline: none;
 }
