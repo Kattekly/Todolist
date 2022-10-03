@@ -22,7 +22,6 @@ const TodoList = (props: TodoListPropsType) => {
     const [title, setTitle] = useState<string>('')
 
     const [error, setError] = useState<boolean>(false)
-
     const taskList = props.tasks.map((t) => {
         const removeTasks = () => props.removeTask(t.id)
         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked)
