@@ -31,6 +31,11 @@ function App() {
         }
         setTask([newTask, ...tasks])
     }
+
+    const changeTaskStatus = (taskId: string) => {
+
+    }
+
 const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
     let tasksForTodolist = t;
     if (f === "active") {
@@ -41,7 +46,6 @@ const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
     }
     return tasksForTodolist
 }
-
 
     return (
         <div className="App">
