@@ -32,8 +32,9 @@ function App() {
         setTask([newTask, ...tasks])
     }
 
-    const changeTaskStatus = (taskId: string) => {
-
+    const changeTaskStatus = (taskId: string, newStatus: boolean) => {
+const updateTasks: Array<TasksType> = tasks.map(t => t.id === taskId ? {...t, isDone: newStatus} : t)
+        setTask(updateTasks)
     }
 
 const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
@@ -53,7 +54,8 @@ const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
                       tasks={getFilteredTasks(tasks, filter)}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
-                      addTask={addTask}/>
+                      addTask={addTask}
+                      changeTaskStatus={changeTaskStatus}/>
         </div>
     );
 }

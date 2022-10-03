@@ -8,6 +8,7 @@ type TodoListPropsType = {
     removeTask: (id: string) => void
     changeFilter: (filter: FilerValueType) => void
     addTask: (title: string) => void
+    changeTaskStatus: (taskId: string, newStatus: boolean) => void
 }
 
 export type TasksType = {
@@ -20,13 +21,17 @@ const TodoList = (props: TodoListPropsType) => {
     const [title, setTitle] = useState<string>('')
     const taskList = props.tasks.map((t) => {
         const removeTasks = () => props.removeTask(t.id)
+
+
         return (
-            <li key={t.id}><input type="checkbox" checked={t.isDone}/><span>{t.title}</span>
+            <li key={t.id}><input onChange={(e) => props.changeTaskStatus(t.id, e.currentTarget.checked)}
+                                  type="checkbox"
+                                  checked={t.isDone}/><span>{t.title}</span>
                 <button onClick={removeTasks}>x</button>
             </li>)
     })
 
-   const addTask = () => {
+    const addTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
             props.addTask(trimmedTitle)
