@@ -10,10 +10,23 @@
 .isDone {
   text-decoration: line-through;
   font-weight: bold;
-  color: lawngreen;
+  color: orange;
 }
 
 .notIsDone {
   font-weight: bold;
-  color: hotpink;
+  color: purple;
+}
+
+.activeButton {
+  background-color: darkred;
+  color: white;
+}
+
+.btn {
+  font-weight: bold;
+  font-weight: bold;
+  border-radius: 2px;
+  padding: 3px;
+  margin-right: 3px;
 }

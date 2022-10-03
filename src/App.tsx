@@ -53,6 +53,7 @@ const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
             <TodoList title={todoListTitle}
                       tasks={getFilteredTasks(tasks, filter)}
                       removeTask={removeTask}
+                      filter={filter}
                       changeFilter={changeFilter}
                       addTask={addTask}
                       changeTaskStatus={changeTaskStatus}/>

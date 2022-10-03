@@ -58,9 +58,9 @@ const TodoList = (props: TodoListPropsType) => {
                 {taskList}
             </ul>
             <div>
-                <button className={props.filter === "all" ? "activeButton": ""} onClick={handlerCreator('all')}>All</button>
-                <button className={props.filter === "active" ? "activeButton": ""} onClick={handlerCreator("active")}>Active</button>
-                <button className={props.filter === "completed" ? "activeButton": ""} onClick={handlerCreator("completed")}>Completed</button>
+                <button className={props.filter === "all" ? "activeButton btn": "btn"} onClick={handlerCreator('all')}>All</button>
+                <button className={props.filter === "active" ? "activeButton btn": "btn"} onClick={handlerCreator("active")}>Active</button>
+                <button className={props.filter === "completed" ? "activeButton btn": "btn"} onClick={handlerCreator("completed")}>Completed</button>
             </div>
         </div>
     );
