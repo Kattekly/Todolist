@@ -47,7 +47,8 @@ const TodoList = (props: TodoListPropsType) => {
     }
 
     const handlerCreator = (filter: FilerValueType) => () => props.changeFilter(filter)
-    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => { error && setError(false)
+        setTitle(e.currentTarget.value)}
     const onEnterDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTask()
     const errorMessage = error ? <div style={{fontWeight: "bold", color: "darkred"}}>Title is required! </div>: null
     return (
