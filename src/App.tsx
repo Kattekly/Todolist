@@ -5,14 +5,41 @@ import {v1} from "uuid";
 
 export type FilerValueType = "all" | "active" | "completed"
 
+type TodolistType = {
+    id: string
+    title: string
+    filter: FilerValueType
+}
+
+
+type TaskStateType = {
+    [todoListId: string]: Array<TasksType>
+}
+
 function App() {
-    const todoListTitle: string = "What to learn"
-    const [tasks, setTask] = useState<Array<TasksType>>([
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "React", isDone: false},
-        {id: v1(), title: "Redux", isDone: false}
-    ])
+
+const todoList_1 = v1()
+const todoList_2 = v1()
+const [todoList, setTodoList] = useState<Array<TodolistType>>([
+    {id: v1(), title: "What to learn", filter: "all"},
+    {id: v1(), title: "What to buy", filter: "all"},
+])
+
+    const [tasks, setTask] = useState<TaskStateType>({
+        [todoList_1] : [
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "React", isDone: false},
+            {id: v1(), title: "Redux", isDone: false}
+        ],
+        [todoList_2]: [
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "React", isDone: false},
+            {id: v1(), title: "Redux", isDone: false}
+        ]
+    })
+
 
     const removeTask = (id: string) => {
         setTask(tasks.filter((t) => t.id !== id))
