@@ -48,10 +48,10 @@ const [todoList, setTodoList] = useState<Array<TodolistType>>([
         //setTask({...tasks, [todoListId]: tasks[todoListId].filter((t) => t.id !== id)})
     }
 
-    const [filter, setFilter] = useState<FilerValueType>('all')
-    const changeFilter = (filter: FilerValueType) => {
-        setFilter(filter)
-    }
+    // const [filter, setFilter] = useState<FilerValueType>('all')
+    // const changeFilter = (filter: FilerValueType) => {
+    //     setFilter(filter)
+    // }
 
     const  addTask = (title: string, todoListId: string) => {
         const newTask: TasksType = {
@@ -59,13 +59,12 @@ const [todoList, setTodoList] = useState<Array<TodolistType>>([
             title: title,
             isDone: false
         }
-        setTask([newTask, ...tasks])
+        setTask({...tasks, [todoListId]: [newTask,...tasks[todoListId]]})
     }
 
- /*   const changeTaskStatus = (taskId: string, newStatus: boolean, todoListId: string) => {
-const updateTasks: Array<TasksType> = tasks.map(t => t.id === taskId ? {...t, isDone: newStatus} : t)
-        setTask(updateTasks)
-    }*/
+    const changeTaskStatus = (taskId: string, newStatus: boolean, todoListId: string) => {
+        setTask({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone: newStatus} : t)})
+    }
 
 const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
     let tasksForTodolist = t;
