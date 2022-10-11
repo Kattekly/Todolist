@@ -86,15 +86,21 @@ const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
     return tasksForTodolist
 }
 
+const todolistComponents = todoList.map(tl => {
+    return (
+    <TodoList title={tl.title}
+              tasks={getFilteredTasks(tasks[tl.id], tl.filter)}
+              removeTask={removeTask}
+              filter={tl.filter}
+              changeTodolistFilter={changeTodolistFilter}
+              addTask={addTask}
+              changeTaskStatus={changeTaskStatus}/>
+
+    )})
+
     return (
         <div className="App">
-            <TodoList title={todoListTitle}
-                      tasks={getFilteredTasks(tasks, filter)}
-                      removeTask={removeTask}
-                      filter={filter}
-                      changeFilter={changeFilter}
-                      addTask={addTask}
-                      changeTaskStatus={changeTaskStatus}/>
+            {todolistComponents}
         </div>
     );
 }
