@@ -48,9 +48,8 @@ const TodoList = (props: TodoListPropsType) => {
     }
 
     const handlerCreator = (filter: FilerValueType)  => {
-       return () => props.changeFilter(filter)
+       return () => props.changeTodolistFilter(filter, props.todoListId)
     }
-
 
     const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false);
