@@ -66,6 +66,15 @@ const [todoList, setTodoList] = useState<Array<TodolistType>>([
         setTask({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone: newStatus} : t)})
     }
 
+    const changeTodolistFilter = (filter: FilerValueType, todoListId: string) => {
+    setTodoList(todoList.map(tl => tl.id === todoListId ? {...tl, filter: filter}: tl))
+    }
+
+    const removeTodo = (todoListId: string) => {
+        setTodoList(todoList.filter(tl => tl.id !== todoListId))
+        delete tasks[todoListId]
+    }
+
 const getFilteredTasks = (t: Array<TasksType>, f: FilerValueType) => {
     let tasksForTodolist = t;
     if (f === "active") {
