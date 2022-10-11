@@ -3,6 +3,7 @@ import {FilerValueType} from "./App";
 
 
 type TodoListPropsType = {
+    todoListId: string
     title: string
     tasks: Array<TasksType>
     filter: FilerValueType
@@ -10,6 +11,7 @@ type TodoListPropsType = {
     changeTodolistFilter: (filter: FilerValueType, todoListId: string) => void
     addTask: (title: string, todoListId: string) => void
     changeTaskStatus: (taskId: string, newStatus: boolean, todoListId: string) => void
+    removeTodoList: (todoListId: string) => void
 }
 
 export type TasksType = {
@@ -23,8 +25,8 @@ const TodoList = (props: TodoListPropsType) => {
 
     const [error, setError] = useState<boolean>(false)
     const taskList = props.tasks.map((t) => {
-        const removeTasks = () => props.removeTask(t.id)
-        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked)
+        const removeTasks = () => props.removeTask(t.id, props.todoListId)
+        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.todoListId)
 
         return (
             <li key={t.id} className={t.isDone ? "isDone" : "notIsDone"}>
@@ -38,14 +40,18 @@ const TodoList = (props: TodoListPropsType) => {
     const addTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
-            props.addTask(trimmedTitle)
+            props.addTask(trimmedTitle, props.todoListId)
         } else {
             setError(true)
         }
         setTitle('')
     }
 
-    const handlerCreator = (filter: FilerValueType) => () => props.changeFilter(filter)
+    const handlerCreator = (filter: FilerValueType)  => {
+       return () => props.changeFilter(filter)
+    }
+
+
     const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false);
         setTitle(e.currentTarget.value)
