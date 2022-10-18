@@ -43,6 +43,7 @@ function App() {
 
 
     const editTask= (todoListId: string, taskId: string, newTitle: string) => {
+        setTask({...tasks, [todoListId]: tasks[todoListId].map((el) => el.id === taskId ? {...el, title: newTitle}: el)})
         console.log(newTitle)
     }
 
