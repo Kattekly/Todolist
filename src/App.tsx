@@ -42,6 +42,10 @@ function App() {
     })
 
 
+    const editTask= (todoListId: string, taskId: string, newTitle: string) => {
+
+    }
+
     const removeTask = (id: string, todoListId: string) => {
         const copyTasks = {...tasks}
         copyTasks[todoListId] = copyTasks[todoListId].filter((t) => t.id !== id)
