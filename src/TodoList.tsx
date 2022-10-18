@@ -33,7 +33,8 @@ const TodoList = (props: TodoListPropsType) => {
             <li key={t.id} className={t.isDone ? "isDone" : "notIsDone"}>
                 <input onChange={changeTaskStatus}
                        type="checkbox"
-                       checked={t.isDone}/><span>{t.title}</span>
+                       checked={t.isDone}/>
+                <span>{t.title}</span>
                 <button onClick={removeTasks}>x</button>
             </li>)
     })
