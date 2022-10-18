@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilerValueType} from "./App";
+import {Input} from "./components/Input";
 
 
 type TodoListPropsType = {
@@ -21,9 +22,9 @@ export type TasksType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
-    const [title, setTitle] = useState<string>('')
+    /*const [title, setTitle] = useState<string>('')*/
 
-    const [error, setError] = useState<boolean>(false)
+   /* const [error, setError] = useState<boolean>(false)*/
     const taskList = props.tasks.map((t) => {
         const removeTasks = () => props.removeTask(t.id, props.todoListId)
         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.todoListId)
@@ -37,7 +38,7 @@ const TodoList = (props: TodoListPropsType) => {
             </li>)
     })
 
-    const addTask = () => {
+   /* const addTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
             props.addTask(trimmedTitle, props.todoListId)
@@ -45,30 +46,36 @@ const TodoList = (props: TodoListPropsType) => {
             setError(true)
         }
         setTitle('')
-    }
+    }*/
 
     const handlerCreator = (filter: FilerValueType)  => () => props.changeTodolistFilter(filter, props.todoListId)
 
-    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
+   /* const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false);
         setTitle(e.currentTarget.value)
-    }
+    }*/
     const removeTodolist = () => props.removeTodoList(props.todoListId)
-    const onEnterDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTask()
-    const errorMessage = error ? <div style={{fontWeight: "bold", color: "darkred"}}>Title is required!</div> : null
+    /*const onEnterDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTask()*/
+    /*const errorMessage = error ? <div style={{fontWeight: "bold", color: "darkred"}}>Title is required!</div> : null*/
+    const addTaskHandler = (newTitle: string) => {
+        props.addTask(newTitle, props.todoListId)
+    }
+
     return (
         <div>
             <h3>{props.title}
                 <button onClick={removeTodolist}>x</button>
             </h3>
-            <div>
+            <Input callback={addTaskHandler}/>
+
+            {/*<div>
                 <input className={error ? "error" : ""}
                        value={title}
                        onChange={onChangeSetTitle}
                        onKeyDown={onEnterDownAddTask}/>
                 <button onClick={addTask}>+</button>
                 {errorMessage}
-            </div>
+            </div>*/}
             <ul>
                 {taskList}
             </ul>
