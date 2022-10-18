@@ -65,9 +65,11 @@ const TodoList = (props: TodoListPropsType) => {
         props.addTask(newTitle, props.todoListId)
     }
 
+    const editTodolistHandler = {}
+
     return (
         <div>
-            <h3> < EditabelSpan title={props.todoListId} callback={}/>
+            <h3> < EditabelSpan title={props.todoListId} callback={editTodolistHandler}/>
                 <button onClick={removeTodolist}>x</button>
             </h3>
             <Input callback={addTaskHandler}/>
