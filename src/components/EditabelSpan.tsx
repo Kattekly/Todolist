@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 
 type EditabelSpanPropsType = {
     title: string
+    editTask: (newTitle: string) => void
 }
 
 
@@ -11,6 +12,7 @@ export const EditabelSpan = (props: EditabelSpanPropsType) => {
 
     const onClickHandler = () => {
         setEdit(!edit)
+        props.editTask(newTitle)
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

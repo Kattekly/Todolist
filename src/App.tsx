@@ -43,7 +43,7 @@ function App() {
 
 
     const editTask= (todoListId: string, taskId: string, newTitle: string) => {
-
+        console.log(newTitle)
     }
 
     const removeTask = (id: string, todoListId: string) => {
@@ -112,7 +112,8 @@ function App() {
                     changeTodolistFilter={changeTodolistFilter}
                     addTask={addTask}
                     changeTaskStatus={changeTaskStatus}
-                    removeTodoList={removeTodoList}/>
+                    removeTodoList={removeTodoList}
+                    editTask={editTask}/>
             </div>
         )
     })
