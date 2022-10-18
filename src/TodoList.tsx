@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilerValueType} from "./App";
 import {Input} from "./components/Input";
+import {EditabelSpan} from "./components/EditabelSpan";
 
 
 type TodoListPropsType = {
@@ -34,7 +35,8 @@ const TodoList = (props: TodoListPropsType) => {
                 <input onChange={changeTaskStatus}
                        type="checkbox"
                        checked={t.isDone}/>
-                <span>{t.title}</span>
+                {/*<span>{t.title}</span>*/}
+                <EditabelSpan title={t.title}/>
                 <button onClick={removeTasks}>x</button>
             </li>)
     })

@@ -90,7 +90,7 @@ function App() {
     const addTodolist = (newTitle: string) => {
         const newTodolistId = v1()
         const newTodolist: TodolistType = {id: newTodolistId, title: newTitle, filter: "all"}
-setTodoList([...todoList, newTodolist])
+        setTodoList([...todoList, newTodolist])
         setTask({...tasks, [newTodolistId]: []})
     }
 
@@ -98,17 +98,17 @@ setTodoList([...todoList, newTodolist])
         return (
             <div>
 
-            <TodoList
-                key={tl.id}
-                todoListId={tl.id}
-                title={tl.title}
-                filter={tl.filter}
-                tasks={getFilteredTasks(tasks[tl.id], tl.filter)}
-                removeTask={removeTask}
-                changeTodolistFilter={changeTodolistFilter}
-                addTask={addTask}
-                changeTaskStatus={changeTaskStatus}
-                removeTodoList={removeTodoList}/>
+                <TodoList
+                    key={tl.id}
+                    todoListId={tl.id}
+                    title={tl.title}
+                    filter={tl.filter}
+                    tasks={getFilteredTasks(tasks[tl.id], tl.filter)}
+                    removeTask={removeTask}
+                    changeTodolistFilter={changeTodolistFilter}
+                    addTask={addTask}
+                    changeTaskStatus={changeTaskStatus}
+                    removeTodoList={removeTodoList}/>
             </div>
         )
     })
