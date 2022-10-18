@@ -58,20 +58,16 @@ const TodoList = (props: TodoListPropsType) => {
 
     const handlerCreator = (filter: FilerValueType)  => () => props.changeTodolistFilter(filter, props.todoListId)
 
-   /* const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false);
-        setTitle(e.currentTarget.value)
-    }*/
+
     const removeTodolist = () => props.removeTodoList(props.todoListId)
-    /*const onEnterDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTask()*/
-    /*const errorMessage = error ? <div style={{fontWeight: "bold", color: "darkred"}}>Title is required!</div> : null*/
+
     const addTaskHandler = (newTitle: string) => {
         props.addTask(newTitle, props.todoListId)
     }
 
     return (
         <div>
-            <h3>{props.title}
+            <h3> < EditabelSpan title={props.todoListId} callback={}/>
                 <button onClick={removeTodolist}>x</button>
             </h3>
             <Input callback={addTaskHandler}/>
