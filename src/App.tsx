@@ -100,7 +100,7 @@ function App() {
     }
 
     const editTodolist = (todoListLd: string, title: string) => {
-
+        setTodoList(todoList.map( t => t.id === todoListLd ? {...t, title: title} : t))
     }
 
     const todolistComponents = todoList.map(tl => {
