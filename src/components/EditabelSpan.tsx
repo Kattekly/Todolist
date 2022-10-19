@@ -3,6 +3,7 @@ import React, {ChangeEvent, useState} from 'react';
 type EditabelSpanPropsType = {
     title: string
     callback: (newTitle: string) => void
+    editTodolist: (title: string) => void
 }
 
 
@@ -12,7 +13,7 @@ export const EditabelSpan = (props: EditabelSpanPropsType) => {
 
     const onClickHandler = () => {
         setEdit(!edit)
-        props.editTask(newTitle)
+        props.callback
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

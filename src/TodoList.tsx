@@ -15,6 +15,7 @@ type TodoListPropsType = {
     changeTaskStatus: (taskId: string, newStatus: boolean, todoListId: string) => void
     removeTodoList: (todoListId: string) => void
     editTask: (todoListId: string, taskId: string, newTitle: string) => void
+    editTodolist: (todoListLd: string, title: string) => void
 }
 
 export type TasksType = {
@@ -24,9 +25,6 @@ export type TasksType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
-    /*const [title, setTitle] = useState<string>('')*/
-
-   /* const [error, setError] = useState<boolean>(false)*/
     const taskList = props.tasks.map((t) => {
         const removeTasks = () => props.removeTask(t.id, props.todoListId)
         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked, props.todoListId)
@@ -40,23 +38,12 @@ const TodoList = (props: TodoListPropsType) => {
                 <input onChange={changeTaskStatus}
                        type="checkbox"
                        checked={t.isDone}/>
-                {/*<span>{t.title}</span>*/}
-                <EditabelSpan title={t.title} editTask={editTaskHandler}/>
+                <EditabelSpan title={t.title} callback={editTaskHandler}/>
                 <button onClick={removeTasks}>x</button>
             </li>)
     })
 
-   /* const addTask = () => {
-        const trimmedTitle = title.trim()
-        if (trimmedTitle !== '') {
-            props.addTask(trimmedTitle, props.todoListId)
-        } else {
-            setError(true)
-        }
-        setTitle('')
-    }*/
-
-    const handlerCreator = (filter: FilerValueType)  => () => props.changeTodolistFilter(filter, props.todoListId)
+    const handlerCreator = (filter: FilerValueType) => () => props.changeTodolistFilter(filter, props.todoListId)
 
 
     const removeTodolist = () => props.removeTodoList(props.todoListId)
@@ -65,23 +52,16 @@ const TodoList = (props: TodoListPropsType) => {
         props.addTask(newTitle, props.todoListId)
     }
 
-    const editTodolistHandler = {}
+    const editTodolistHandler = (title: string) => {
+        props.editTodolist
+    }
 
     return (
         <div>
-            <h3> < EditabelSpan title={props.todoListId} callback={editTodolistHandler}/>
+            <h3>< EditabelSpan title={props.title} callback={editTodolistHandler}/>
                 <button onClick={removeTodolist}>x</button>
             </h3>
             <Input callback={addTaskHandler}/>
-
-            {/*<div>
-                <input className={error ? "error" : ""}
-                       value={title}
-                       onChange={onChangeSetTitle}
-                       onKeyDown={onEnterDownAddTask}/>
-                <button onClick={addTask}>+</button>
-                {errorMessage}
-            </div>*/}
             <ul>
                 {taskList}
             </ul>

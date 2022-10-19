@@ -99,6 +99,10 @@ function App() {
         setTask({...tasks, [newTodolistId]: []})
     }
 
+    const editTodolist = (todoListLd: string, title: string) => {
+
+    }
+
     const todolistComponents = todoList.map(tl => {
         return (
             <div>
@@ -114,7 +118,8 @@ function App() {
                     addTask={addTask}
                     changeTaskStatus={changeTaskStatus}
                     removeTodoList={removeTodoList}
-                    editTask={editTask}/>
+                    editTask={editTask}
+                    editTodolist={editTodolist}/>
             </div>
         )
     })
