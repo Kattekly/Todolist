@@ -53,7 +53,7 @@ const TodoList = (props: TodoListPropsType) => {
     }
 
     const editTodolistHandler = (title: string) => {
-        props.editTodolist
+        props.editTodolist(props.todoListId, title)
     }
 
     return (
