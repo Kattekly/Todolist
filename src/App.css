@@ -1,3 +1,6 @@
+
+
+/*
 .App {
   padding: 30px;
   display: flex;
@@ -7,31 +10,19 @@
   margin-right: 50px;
 }
 
-.isDone {
-  text-decoration: line-through;
-  font-weight: bold;
-  color: orange;
-}
-
-.notIsDone {
-  font-weight: bold;
-  color: purple;
-}
-
-.activeButton {
-  background-color: darkred;
-  color: white;
-}
-
-.btn {
-  font-weight: bold;
-  border-radius: 2px;
-  padding: 3px;
-  margin-right: 3px;
-  border: none;
-}
-
 .error {
-  border: 2px solid darkred;
-  outline: none;
+  border: red 1px solid;
 }
+
+.error-message {
+  color: red;
+}
+
+.active-filter {
+  background-color: aquamarine;
+}
+
+.is-done {
+  opacity: 0.5;
+}
+*/
