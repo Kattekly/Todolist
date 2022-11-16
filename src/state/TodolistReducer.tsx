@@ -2,6 +2,8 @@ import {FilterValuesType, TodolistType} from "../App";
 import {v1} from "uuid";
 
 type ActionsType = removeTodolistACType | addTodolistACType | editTodolistType | changeTodolistACType
+const initialState: Array<TodolistType> = []
+
 
 export type removeTodolistACType = ReturnType<typeof removeTodolistAC>
 export const removeTodolistAC = (id: string) => {
@@ -46,7 +48,7 @@ export const changeFilterTodolistAC = (todolistId: string, value: FilterValuesTy
     } as const
 }
 
-export const TodolistReducer = (state: Array<TodolistType>, action: ActionsType): Array<TodolistType> => {
+export const TodolistReducer = (state = initialState, action: ActionsType): Array<TodolistType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
 return state.filter(tl => tl.id != action.payload.id)
