@@ -12,6 +12,7 @@ import {
     removeTodolistAC,
     TodolistReducer
 } from "./state/TodolistReducer";
+import {removeTaskAC, tasksReducer} from "./state/TaskReducer";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -26,21 +27,16 @@ export type TasksStateType = {
 }
 
 
-function App() {
+function AppWithReducer() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
- /*   let [todolists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ])*/
-
-    let [todolists, todolistsDispatch] = useReducer (TodolistReducer, [
+    let [todolists, dispatchToTodolist] = useReducer (TodolistReducer, [
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ])
 
-    let [tasks, setTasks] = useState<TasksStateType>({
+    let [tasks, dispatchToTask] = useReducer(tasksReducer, {
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -54,22 +50,11 @@ function App() {
 
 
     function removeTask(id: string, todolistId: string) {
-        //достанем нужный массив по todolistId:
-        let todolistTasks = tasks[todolistId];
-        // перезапишем в этом объекте массив для нужного тудулиста отфилтрованным массивом:
-        tasks[todolistId] = todolistTasks.filter(t => t.id != id);
-        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-        setTasks({...tasks});
+        dispatchToTask(removeTaskAC(id, todolistId))
     }
 
     function addTask(title: string, todolistId: string) {
-        let task = {id: v1(), title: title, isDone: false};
-        //достанем нужный массив по todolistId:
-        let todolistTasks = tasks[todolistId];
-        // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
-        tasks[todolistId] = [task, ...todolistTasks];
-        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-        setTasks({...tasks});
+
     }
 
     function changeStatus(id: string, isDone: boolean, todolistId: string) {
@@ -193,5 +178,5 @@ function App() {
     );
 }
 
-export default App;
+export default AppWithReducer;
 
