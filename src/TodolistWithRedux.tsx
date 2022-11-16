@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {Input} from "./components/Input";
 import {CheckBOX} from "./components/Checkbox";
 import Button from "@mui/material/Button";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TaskType} from "./Todolist";
 
@@ -18,6 +18,18 @@ type TodolistWithReduxPropsType = {
 
 export const TodolistWithRedux = ({todolistId, title, filter}: TodolistWithReduxPropsType) => {
     let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[todolistId])
+    const dispatch = useDispatch()
+
+
+    let allTodolistTasks = tasks[id];
+    let tasksForTodolist = allTodolistTasks;
+
+    if (filter === "active") {
+        tasks = tasks.filter
+    }
+    if (filter === "completed") {
+        tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
+    }
 
     return (
         <div>
@@ -32,7 +44,7 @@ export const TodolistWithRedux = ({todolistId, title, filter}: TodolistWithRedux
             <Input callback={AddTaskHandler}/>
             <ul>
                 {
-                    props.tasks.map(t => {
+                    tasks.map(t => {
                         const onClickHandler = () => props.removeTask(t.id, todolistId)
                         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                             let newIsDoneValue = e.currentTarget.checked;
