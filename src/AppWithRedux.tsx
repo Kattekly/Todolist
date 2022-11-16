@@ -13,7 +13,7 @@ import {
     TodolistReducer
 } from "./state/TodolistReducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/TaskReducer";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 
 
@@ -34,42 +34,40 @@ function AppWithReducer() {
     let todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
 
     let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
+    let dispatch = useDispatch()
 
     function removeTask(id: string, todolistId: string) {
-        dispatchToTask(removeTaskAC(id, todolistId))
+        dispatch(removeTaskAC(id, todolistId))
     }
 
     function addTask(title: string, todolistId: string) {
-        dispatchToTask(addTaskAC(title, todolistId))
+        dispatch(addTaskAC(title, todolistId))
     }
 
     function changeStatus(id: string, isDone: boolean, todolistId: string) {
-        dispatchToTask(changeTaskStatusAC(id, isDone, todolistId))
+        dispatch(changeTaskStatusAC(id, isDone, todolistId))
     }
 
     function editTask(todolistId: string, taskId: string, newTitle: string) {
-        dispatchToTask(changeTaskTitleAC(taskId, newTitle, todolistId))
+        dispatch(changeTaskTitleAC(taskId, newTitle, todolistId))
     }
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
-        dispatchToTodolist(changeFilterTodolistAC(todolistId, value))
+        dispatch(changeFilterTodolistAC(todolistId, value))
     }
 
     function removeTodolist(id: string) {
         let action = removeTodolistAC(id)
-        dispatchToTodolist(action)
-        dispatchToTask(action)
+        dispatch(action)
     }
 
     function addTodolist(newTitle: string) {
         let action = addTodolistAC(newTitle)
-        dispatchToTodolist(action)
-        dispatchToTask(action)
+        dispatch(action)
     }
 
     function editTodolist(todolistId: string, newTitle: string) {
-        dispatchToTodolist(editTodolistAC(todolistId, newTitle))
+        dispatch(editTodolistAC(todolistId, newTitle))
     }
 
     return (
@@ -79,7 +77,7 @@ function AppWithReducer() {
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <Menu/>
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         News
                     </Typography>
                     <Button color="inherit">Login</Button>
