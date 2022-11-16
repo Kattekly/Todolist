@@ -6,13 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import AppWithReducer from "./AppWithReducer";
 import {Provider} from "react-redux";
 import {store} from "./state/store";
+import AppWithRedux from "./AppWithRedux";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-      (<Provider store={store}> <AppWithReducer /></Provider>)
+      (<Provider store={store}> <AppWithRedux /></Provider>)
 
   </React.StrictMode>
 );
