@@ -54,13 +54,11 @@ function AppWithRedux() {
     }
 
     function removeTodolist(id: string) {
-        let action = removeTodolistAC(id)
-        dispatch(action)
+        dispatch(removeTodolistAC(id))
     }
 
     function addTodolist(newTitle: string) {
-        let action = addTodolistAC(newTitle)
-        dispatch(action)
+        dispatch(addTodolistAC(newTitle))
     }
 
     function editTodolist(todolistId: string, newTitle: string) {

@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TaskType} from "./Todolist";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC} from "./state/TaskReducer";
+import {editTodolistAC, removeTodolistAC} from "./state/TodolistReducer";
 
 export type TodolistWithReduxPropsType = {
     todolist: TodolistType
@@ -22,17 +23,19 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
 
     const dispatch = useDispatch()
 
-
-    const removeTodolist = () => props.removeTodolist(props.id)
-
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
     const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
+
+    const removeTodolist = () => {
+        dispatch(removeTodolistAC(id))
+    }
+
+    const editTodolistHandler = (newTitle: string) => {
+        dispatch(editTodolistAC(id, newTitle))
+    }
     const AddTaskHandler = (title: string) => {
         dispatch(addTaskAC(title, id))
-    }
-    const editTodolistHandler = (newTitle: string) => {
-        props.editTodolist(props.id, newTitle)
     }
 
     const editTaskHandler = (tID: string, newTitle: string) => {
