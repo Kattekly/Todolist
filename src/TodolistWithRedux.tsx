@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TaskType} from "./Todolist";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC} from "./state/TaskReducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/TaskReducer";
 import {changeFilterTodolistAC, editTodolistAC, removeTodolistAC} from "./state/TodolistReducer";
 
 export type TodolistWithReduxPropsType = {
@@ -38,9 +38,9 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
         dispatch(addTaskAC(title, id))
     }
 
-   /* const editTaskHandler = (tID: string, newTitle: string) => {
-        dispatch(changeTaskTitleAC(taskId, newTitle, todolistId))
-    }*/
+    /* const editTaskHandler = (tID: string, newTitle: string) => {
+         dispatch(changeTaskTitleAC(taskId, newTitle, todolistId))
+     }*/
 
     const changeStatusHandler = (tId: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(id, isDone, id))
@@ -61,10 +61,10 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
             <ul>
                 {
                     tasks.map(t => {
-                        const onClickHandler = () => dispatch(t.id, id)
+                        const onClickHandler = () => dispatch(removeTaskAC(t.id, id))
                         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                             let newIsDoneValue = e.currentTarget.checked;
-                            props.changeTaskStatus(t.id, newIsDoneValue, todolist);
+                            dispatch(changeTaskStatusAC(t.id, newIsDoneValue, id));
                         }
 
 
