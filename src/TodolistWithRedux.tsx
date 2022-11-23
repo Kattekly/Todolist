@@ -11,7 +11,7 @@ import {AppRootStateType} from "./state/store";
 import {TaskType} from "./Todolist";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC} from "./state/TaskReducer";
 
-type TodolistWithReduxPropsType = {
+export type TodolistWithReduxPropsType = {
     todolist: TodolistType
 }
 
@@ -19,6 +19,7 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
     const {id, title, filter} = todolist
 
     let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id])
+
     const dispatch = useDispatch()
 
 
@@ -57,7 +58,7 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
             <ul>
                 {
                     tasks.map(t => {
-                        const onClickHandler = () => props.removeTask(t.id, todolist)
+                        const onClickHandler = () => dispatch(t.id, id)
                         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                             let newIsDoneValue = e.currentTarget.checked;
                             props.changeTaskStatus(t.id, newIsDoneValue, todolist);
