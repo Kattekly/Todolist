@@ -48,7 +48,11 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
     }
 
     const changeStatusHandler = (tId: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(id, isDone, id))
+        dispatch(changeTaskStatusAC(tId, isDone, id))
+    }
+
+    const editTaskHandler = (tID: string, newTitle: string) => {
+        dispatch(changeTaskTitleAC(tID, newTitle, id))
     }
 
     return (
@@ -70,16 +74,13 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
                             let newIsDoneValue = e.currentTarget.checked;
                             dispatch(changeTaskStatusAC(t.id, newIsDoneValue, id));
                         }
-                        const editTaskHandler = (newTitle: string) => {
-                            dispatch(changeTaskTitleAC(t.id, newTitle, id))
-                        }
 
                         return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                             {/* <Checkbox onChange={onChangeHandler} checked={t.isDone}/>*/}
 
-                            <CheckBOX callback={(isDone) => changeStatusHandler(t.id, isDone)} checked={t.isDone}/>
+                            <CheckBOX checked={t.isDone} id={t.id} todoId={id}/>
 
-                            <EditableSpan title={t.title} callback={editTaskHandler}/>
+                            <EditableSpan title={t.title} callback={(newTitle) => editTaskHandler(t.id, newTitle)}/>
                             <IconButton aria-label="delete" onClick={onClickHandler}>
                                 <DeleteIcon/>
                             </IconButton>
