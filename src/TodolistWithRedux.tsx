@@ -38,10 +38,6 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
         dispatch(addTaskAC(title, id))
     }
 
-    /* const editTaskHandler = (tID: string, newTitle: string) => {
-         dispatch(changeTaskTitleAC(taskId, newTitle, todolistId))
-     }*/
-
     const changeStatusHandler = (tId: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(id, isDone, id))
     }
@@ -66,7 +62,9 @@ export const TodolistWithRedux: FC<TodolistWithReduxPropsType> = ({todolist}) =>
                             let newIsDoneValue = e.currentTarget.checked;
                             dispatch(changeTaskStatusAC(t.id, newIsDoneValue, id));
                         }
-
+                        const editTaskHandler = (tID: string, newTitle: string) => {
+                            dispatch(changeTaskTitleAC(t.id, newTitle, id))
+                        }
 
                         return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                             {/* <Checkbox onChange={onChangeHandler} checked={t.isDone}/>*/}
