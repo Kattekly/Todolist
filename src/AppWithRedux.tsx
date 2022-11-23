@@ -13,6 +13,7 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/TaskReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
+import {TodolistWithRedux} from "./TodolistWithRedux";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -30,7 +31,8 @@ function AppWithRedux() {
 
     let todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
 
-    let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    /*let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)*/
+
     let dispatch = useDispatch()
 
     function removeTask(id: string, todolistId: string) {
@@ -85,7 +87,7 @@ function AppWithRedux() {
                 <Grid container spacing={3}>
                     {
                         todolists.map(tl => {
-                            let allTodolistTasks = tasks[tl.id];
+                          /*  let allTodolistTasks = tasks[tl.id];
                             let tasksForTodolist = allTodolistTasks;
 
                             if (tl.filter === "active") {
@@ -93,23 +95,12 @@ function AppWithRedux() {
                             }
                             if (tl.filter === "completed") {
                                 tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
-                            }
+                            }*/
 
                             return <Grid item>
                                 <Paper style={{padding: "10px"}}> {/*рамочки*/}
-                                    <Todolist
-                                        key={tl.id}
-                                        id={tl.id}
-                                        title={tl.title}
-                                        tasks={tasksForTodolist}
-                                        removeTask={removeTask}
-                                        changeFilter={changeFilter}
-                                        addTask={addTask}
-                                        changeTaskStatus={changeStatus}
-                                        filter={tl.filter}
-                                        removeTodolist={removeTodolist}
-                                        editTask={editTask}
-                                        editTodolist={editTodolist}
+                                    <TodolistWithRedux
+                                        todolist={tl}
                                     />
                                 </Paper>
                             </Grid>
