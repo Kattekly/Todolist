@@ -14,14 +14,14 @@ import { Menu } from '@mui/icons-material';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, fetchTodolist,
-    FilterValuesType,
+    changeTodolistTitleAC,
+    FilterValuesType, getTodo,
     removeTodolistAC, setTodolistAC,
     TodolistDomainType
 } from './state/todolists-reducer'
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './state/tasks-reducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppRootStateType } from './state/store';
+import { useSelector } from 'react-redux';
+import {AppDispatch, AppRootStateType} from './state/store';
 import {TaskStatuses, TaskType, todolistsAPI} from './api/todolists-api'
 
 
@@ -33,12 +33,12 @@ export type TasksStateType = {
 function App() {
 
     useEffect(() => {
-        fetchTodolist(dispatch)
+        dispatch(getTodo)
     }, [])
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch();
+    const dispatch = AppDispatch();
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         const action = removeTaskAC(id, todolistId);
