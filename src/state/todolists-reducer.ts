@@ -21,7 +21,7 @@ export type ChangeTodolistFilterActionType = {
     filter: FilterValuesType
 }
 
-type setTodolistActionType = ReturnType<typeof setTodolistAC>
+export type setTodolistActionType = ReturnType<typeof setTodolistAC>
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType
     | ChangeTodolistTitleActionType
