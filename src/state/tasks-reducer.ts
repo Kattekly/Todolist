@@ -129,7 +129,7 @@ export const removeTaskAC = (taskId: string, todolistId: string): RemoveTaskActi
 export const addTaskAC = (task: TaskType): AddTaskActionType => {
     return {type: 'ADD-TASK', task}
 }
-export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistId: string): ChangeTaskStatusActionType => {
+export const changeTaskStatusAC = (taskId: string, todolistId: string, status: TaskStatuses): ChangeTaskStatusActionType => {
     return {type: 'CHANGE-TASK-STATUS', status, todolistId, taskId}
 }
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
@@ -169,12 +169,14 @@ export const updateTaskTC = (todolistId: string, taskId: string, status: TaskSta
         const model: UpdateTaskModelType = {
             title: task.title,
             description: task.description,
-            status: task.status,
+            status: status,
             priority: task.priority,
             startDate: task.startDate,
             deadline: task.deadline
         }
+        todolistsAPI.updateTask(todolistId, taskId, model)
+            .then((res) => {
+                dispatch(changeTaskStatusAC(taskId, todolistId, res.data.data.item.status))
+            })
     }
-
-    todolistsAPI.updateTask()
 }
