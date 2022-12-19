@@ -162,7 +162,7 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
         })
 }
 
-export const updateTaskTC = (todolistId: string, taskId: string, status: TaskStatuses) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+/*export const updateTaskTC = (todolistId: string, taskId: string, status: TaskStatuses) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].find((t) => t.id === taskId)
 
     if (task) {
@@ -173,10 +173,46 @@ export const updateTaskTC = (todolistId: string, taskId: string, status: TaskSta
             priority: task.priority,
             startDate: task.startDate,
             deadline: task.deadline
+
+            ///////////
+            /!*    ...task,
+            status*!/
         }
         todolistsAPI.updateTask(todolistId, taskId, model)
             .then((res) => {
                 dispatch(changeTaskStatusAC(taskId, todolistId, res.data.data.item.status))
             })
     }
+}*/
+
+export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainModelType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    const task = getState().tasks[todolistId].find((t) => t.id === taskId)
+
+    if (task) {
+        const model: UpdateTaskModelType = {
+            title: task.title,
+            description: task.description,
+            status: status,
+            priority: task.priority,
+            startDate: task.startDate,
+            deadline: task.deadline
+
+            ///////////
+            /*    ...task,
+            status*/
+        }
+        todolistsAPI.updateTask(todolistId, taskId, model)
+            .then((res) => {
+                dispatch(changeTaskStatusAC(taskId, todolistId, res.data.data.item.status))
+            })
+    }
+}
+
+type UpdateDomainModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
 }
