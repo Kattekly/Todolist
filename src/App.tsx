@@ -51,12 +51,11 @@ function App() {
     }, []);
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        dispatch(updateTaskTC(todolistId, id, status));
+        dispatch(updateTaskTC(todolistId, id, {status}));
     }, []);
 
     const changeTaskTitle = useCallback(function (id: string, title: string, todolistId: string) {
-        const action = changeTaskTitleAC(id, title, todolistId);
-        dispatch(action);
+        dispatch(updateTaskTC(todolistId, id, {title}));
     }, []);
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
