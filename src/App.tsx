@@ -20,7 +20,7 @@ import {
     removeTodolistAC,
     TodolistDomainType
 } from './state/todolists-reducer'
-import {addTaskTC, changeTaskStatusAC, changeTaskTitleAC, deleteTaskTC, updateTaskTC} from './state/tasks-reducer';
+import {addTaskTC, deleteTaskTC, updateTaskTC} from './state/tasks-reducer';
 import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch} from './state/store';
 import {TaskStatuses, TaskType} from './api/todolists-api'
