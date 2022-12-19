@@ -4,6 +4,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, setTodolistActionType} 
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI} from '../api/todolists-api'
 import {Dispatch} from "redux";
 import {it} from "node:test";
+import {AppRootStateType} from "./store";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK',
@@ -161,4 +162,8 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
             /*const item = response.data.data.item
             dispatch(addTaskAC(task))*/
         })
+}
+
+export const updateTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    todolistsAPI.updateTask()
 }
