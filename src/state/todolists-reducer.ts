@@ -100,8 +100,14 @@ export const setTodolistAC = (todolist: TodolistType[]) => {
 }
 
 export const getTodoTC = () => (dispatch: Dispatch) => {
-        todolistsAPI.getTodolists()
-            .then((response) => {
-                dispatch(setTodolistAC(response.data))
-            })
-    }
+    todolistsAPI.getTodolists()
+        .then((response) => {
+            dispatch(setTodolistAC(response.data))
+        })
+}
+export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+    todolistsAPI.deleteTodolist(todolistId)
+        .then((res) => {
+            dispatch(removeTodolistAC(todolistId))
+        })
+}
