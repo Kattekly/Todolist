@@ -17,7 +17,7 @@ export type AddTaskActionType = {
     task: TaskType
 }
 
-export type ChangeTaskStatusActionType = {
+export type UpdateTaskActionType = {
     type: 'UPDATE-TASK',
     todolistId: string
     taskId: string
@@ -34,7 +34,7 @@ export type ChangeTaskTitleActionType = {
 type SetTaskActionType = ReturnType<typeof setTaskAC>
 
 type ActionsType = RemoveTaskActionType | AddTaskActionType
-    | ChangeTaskStatusActionType
+    | UpdateTaskActionType
     | ChangeTaskTitleActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
@@ -80,7 +80,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'UPDATE-TASK': {
             let todolistTasks = state[action.todolistId];
             let newTasksArray = todolistTasks
-                .map(t => t.id === action.taskId ? {...t, status: action.status} : t);
+                .map(t => t.id === action.taskId ? {...t, ...action.model} : t);
 
             state[action.todolistId] = newTasksArray;
             return ({...state});
@@ -129,7 +129,7 @@ export const removeTaskAC = (taskId: string, todolistId: string): RemoveTaskActi
 export const addTaskAC = (task: TaskType): AddTaskActionType => {
     return {type: 'ADD-TASK', task}
 }
-export const updateTaskAC = (taskId: string, todolistId: string, model: UpdateDomainModelType): ChangeTaskStatusActionType => {
+export const updateTaskAC = (taskId: string, todolistId: string, model: UpdateDomainModelType): UpdateTaskActionType => {
     return {type: 'UPDATE-TASK', model, todolistId, taskId}
 }
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
@@ -204,7 +204,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
         }
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then((res) => {
-                dispatch(updateTaskAC(taskId, todolistId, res.data.data.item.status))
+                dispatch(updateTaskAC(taskId, todolistId, domainModel))
             })
     }
 }
