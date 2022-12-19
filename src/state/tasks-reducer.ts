@@ -129,7 +129,7 @@ export const removeTaskAC = (taskId: string, todolistId: string): RemoveTaskActi
 export const addTaskAC = (task: TaskType): AddTaskActionType => {
     return {type: 'ADD-TASK', task}
 }
-export const changeTaskStatusAC = (taskId: string, todolistId: string, status: TaskStatuses): ChangeTaskStatusActionType => {
+export const updateTaskAC = (taskId: string, todolistId: string, status: TaskStatuses): ChangeTaskStatusActionType => {
     return {type: 'CHANGE-TASK-STATUS', status, todolistId, taskId}
 }
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
@@ -189,21 +189,22 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
     const task = getState().tasks[todolistId].find((t) => t.id === taskId)
 
     if (task) {
-        const model: UpdateTaskModelType = {
+        const apiModel: UpdateTaskModelType = {
             title: task.title,
             description: task.description,
-            status: status,
+            status: task.status,
             priority: task.priority,
             startDate: task.startDate,
-            deadline: task.deadline
+            deadline: task.deadline,
+            ...domainModel
 
             ///////////
             /*    ...task,
             status*/
         }
-        todolistsAPI.updateTask(todolistId, taskId, model)
+        todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then((res) => {
-                dispatch(changeTaskStatusAC(taskId, todolistId, res.data.data.item.status))
+                dispatch(updateTaskAC(taskId, todolistId, res.data.data.item.status))
             })
     }
 }
