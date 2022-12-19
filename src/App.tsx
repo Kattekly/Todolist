@@ -20,16 +20,9 @@ import {
     removeTodolistAC,
     TodolistDomainType
 } from './state/todolists-reducer'
-import {
-    addTaskAC,
-    addTaskTC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
-    deleteTaskTC,
-    removeTaskAC
-} from './state/tasks-reducer';
+import {addTaskTC, changeTaskStatusAC, changeTaskTitleAC, deleteTaskTC} from './state/tasks-reducer';
 import {useSelector} from 'react-redux';
-import {AppDispatch, AppRootStateType} from './state/store';
+import {AppRootStateType, useAppDispatch} from './state/store';
 import {TaskStatuses, TaskType} from './api/todolists-api'
 
 
@@ -47,7 +40,7 @@ function App() {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = AppDispatch();
+    const dispatch = useAppDispatch();
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(deleteTaskTC(todolistId, id))
