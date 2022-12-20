@@ -2,7 +2,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType}
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
-import {setAppStatusAC, setErrorActionType, setStatusActionType} from "../../app/app-reducer";
+import {RequestStatusType, setAppStatusAC, setErrorActionType, setStatusActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: TasksStateType = {}
@@ -10,14 +10,22 @@ const initialState: TasksStateType = {}
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
-            return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
+            return {
+                ...state,
+                [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId),
+                entityStatus: state.entityStatus
+            }
         case 'ADD-TASK':
-            return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
+            return {
+                ...state,
+                [action.task.todoListId]: [action.task, ...state[action.task.todoListId]],
+                entityStatus: state.entityStatus
+            }
         case 'UPDATE-TASK':
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
+                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t), entityStatus: state.entityStatus
             }
         case 'ADD-TODOLIST':
             return {...state, [action.todolist.id]: []}
