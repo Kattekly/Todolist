@@ -7,6 +7,7 @@ import {
     setErrorActionType,
     setStatusActionType
 } from "../../app/app-reducer";
+import {handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -61,6 +62,9 @@ export const fetchTodolistsTC = () => {
                 dispatch(setTodolistsAC(res.data))
                 dispatch(setAppStatusAC('succeeded'))
             })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
+            })
     }
 }
 export const removeTodolistTC = (todolistId: string) => {
@@ -71,6 +75,9 @@ export const removeTodolistTC = (todolistId: string) => {
             .then((res) => {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setAppStatusAC('succeeded'))
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
@@ -91,6 +98,9 @@ export const addTodolistTC = (title: string) => {
                     dispatch(setAppStatusAC('failed'))
                 }
             })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
+            })
     }
 }
 export const changeTodolistTitleTC = (id: string, title: string) => {
@@ -100,6 +110,9 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
             .then((res) => {
                 dispatch(changeTodolistTitleAC(id, title))
                 dispatch(setAppStatusAC('succeeded'))
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
