@@ -2,7 +2,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType}
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
-import {RequestStatusType, setAppStatusAC, setErrorActionType, setStatusActionType} from "../../app/app-reducer";
+import {setAppStatusAC, setErrorActionType, setStatusActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: TasksStateType = {}
@@ -25,7 +25,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t), entityStatus: state.entityStatus
+                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t), entityStatus: 'idle'
             }
         case 'ADD-TODOLIST':
             return {...state, [action.todolist.id]: []}
