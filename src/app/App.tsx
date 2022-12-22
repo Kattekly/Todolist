@@ -14,13 +14,16 @@ import Container from '@mui/material/Container';
 import {Menu} from '@mui/icons-material';
 import {LinearProgress} from "@mui/material";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType, useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 
 function App() {
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+
+    /*   const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)*/
+    const status = useAppSelector((state) => state.app.status)
+
     return (
         <div className="App">
             <ErrorSnackbar/>
