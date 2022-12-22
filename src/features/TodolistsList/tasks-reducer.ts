@@ -94,7 +94,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
 //         })
 // }
 
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+export const addTaskTC = (title: string, todolistId: string) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
@@ -109,14 +109,15 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
                 } else {
                     dispatch(setAppErrorAC('Some error occurred'))
                 }
-                dispatch(setAppStatusAC('idle'))
+
         }
         //     handleServerAppError(res.data, dispatch)
         //
-        // })
-        // .catch((error) => {
-        //     handleServerNetworkError(error, dispatch)
          })
+        .catch((error) => {
+        handleServerNetworkError(error, dispatch)
+            dispatch(setAppStatusAC('idle'))
+        })
 }
 
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
