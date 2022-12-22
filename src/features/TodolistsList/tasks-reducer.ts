@@ -4,6 +4,7 @@ import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
 import {setAppErrorAC, setAppStatusAC, setErrorActionType, setStatusActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {AxiosError} from "axios";
 
 const initialState: TasksStateType = {}
 
@@ -144,8 +145,11 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
             .then(res => {
                 handleServerAppError(res.data, dispatch)
             })
-            .catch((error) => {
-                handleServerNetworkError(error, dispatch)
+            .catch((error: AxiosError<{message: string}>) => {
+                const err = error.response ? error.response.data.message : error.message
+                dispatch(setAppErrorAC(err))
+                dispatch(setAppStatusAC('failed'))
+                // handleServerNetworkError(error, dispatch)
             })
     }
 
