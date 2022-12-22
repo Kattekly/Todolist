@@ -79,8 +79,8 @@ export const removeTodolistTC = (todolistId: string) => {
             .catch((error) => {
                 dispatch(changeTodolistEntityStatusAC(todolistId, 'idle'))
                 dispatch(setAppStatusAC('idle'))
-                dispatch(setAppErrorAC(error.message))
-                /*handleServerNetworkError(error, dispatch)*/
+                /*dispatch(setAppErrorAC(error.message))*/
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
