@@ -144,10 +144,14 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
             status: task.status,
             ...domainModel
         }
-        dispatch(setAppStatusAC('loading'))
+
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then(res => {
-                handleServerAppError(res.data, dispatch)
+                if (res.data.resultCode === 0) {
+                    const action = updateTaskAC(taskId, domainModel, todolistId)
+                    dispatch(action)
+                    dispatch(setAppStatusAC('succeeded'))
+                }
             })
             .catch((error: AxiosError<{ message: string }>) => {
                 const err = error.response ? error.response.data.message : error.message
