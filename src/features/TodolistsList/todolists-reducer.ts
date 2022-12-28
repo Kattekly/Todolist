@@ -97,7 +97,7 @@ export const addTodolistTC = (title: string) => {
                 }
             })
             .catch((error) => {
-                handleServerNetworkError( dispatch, error.message)
+                handleServerNetworkError(dispatch, error.message)
             })
     }
 }
