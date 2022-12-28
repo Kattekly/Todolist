@@ -8,7 +8,7 @@ import {ResponseType} from '../api/todolists-api'
 import {AppActionsType} from "../features/TodolistsList/tasks-reducer";
 
 // generic function
-export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: ErrorUtilsDispatchType) => {
+export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: Dispatch<AppActionsType>) => {
     if (data.messages.length) {
         dispatch(setAppErrorAC(data.messages[0]))
     } else {
@@ -21,5 +21,3 @@ export const handleServerNetworkError = (error: { message: string }, dispatch: D
     dispatch(setAppErrorAC(error.message? error.message : 'Some error'))
     dispatch(setAppStatusAC('failed'))
 }
-
-type ErrorUtilsDispatchType = Dispatch<setErrorActionType | setStatusActionType>
