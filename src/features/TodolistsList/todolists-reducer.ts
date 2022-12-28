@@ -7,7 +7,7 @@ import {
     setErrorActionType,
     setStatusActionType
 } from "../../app/app-reducer";
-import {handleServerNetworkError} from "../../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -63,7 +63,7 @@ export const fetchTodolistsTC = () => {
                 dispatch(setAppStatusAC('succeeded'))
             })
             .catch((error) => {
-                handleServerNetworkError(error, dispatch)
+                handleServerNetworkError(dispatch, error)
             })
     }
 }
@@ -80,7 +80,7 @@ export const removeTodolistTC = (todolistId: string) => {
                 dispatch(changeTodolistEntityStatusAC(todolistId, 'idle'))
                 dispatch(setAppStatusAC('idle'))
                 /*dispatch(setAppErrorAC(error.message))*/
-                handleServerNetworkError(error, dispatch)
+                handleServerNetworkError(dispatch, error)
             })
     }
 }
@@ -93,16 +93,11 @@ export const addTodolistTC = (title: string) => {
                     dispatch(addTodolistAC(res.data.data.item))
                     dispatch(setAppStatusAC('succeeded'))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setAppErrorAC(res.data.messages[0]))
-                    } else {
-                        dispatch(setAppErrorAC('Some error occurred'))
-                    }
-                    dispatch(setAppStatusAC('failed'))
+                    handleServerAppError(res.data, dispatch)
                 }
             })
             .catch((error) => {
-                handleServerNetworkError(error, dispatch)
+                handleServerNetworkError( dispatch, error.message)
             })
     }
 }
@@ -115,7 +110,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
                 dispatch(setAppStatusAC('succeeded'))
             })
             .catch((error) => {
-                handleServerNetworkError(error, dispatch)
+                handleServerNetworkError(dispatch, error)
             })
     }
 }

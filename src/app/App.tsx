@@ -13,9 +13,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import {Menu} from '@mui/icons-material';
 import {LinearProgress} from "@mui/material";
-import {useSelector} from "react-redux";
-import {AppRootStateType, useAppSelector} from "./store";
-import {RequestStatusType} from "./app-reducer";
+import {useAppSelector} from "./store";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 
