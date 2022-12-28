@@ -3,7 +3,7 @@ import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelTyp
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
 import {setAppErrorAC, setAppStatusAC, setErrorActionType, setStatusActionType} from "../../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {handleServerNetworkError} from "../../utils/error-utils";
 import axios, {AxiosError} from "axios";
 
 const initialState: TasksStateType = {}
@@ -84,16 +84,6 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             handleServerNetworkError(error, dispatch)
         })
 }
-// export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
-//     dispatch(setStatusAC('loading'))
-//     todolistsAPI.createTask(todolistId, title)
-//         .then(res => {
-//             const task = res.data.data.item
-//             const action = addTaskAC(task)
-//             dispatch(action)
-//             dispatch(setStatusAC('succeeded'))
-//         })
-// }
 
 export const addTaskTC = (title: string, todolistId: string) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
@@ -161,7 +151,6 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                 const err = error.response ? error.response.data.message : error.message
                 dispatch(setAppErrorAC(err))
                 dispatch(setAppStatusAC('failed'))
-                // handleServerNetworkError(error, dispatch)
             })
     }
 
