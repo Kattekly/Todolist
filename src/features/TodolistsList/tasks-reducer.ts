@@ -102,11 +102,10 @@ export const addTaskTC = (title: string, todolistId: string) => async (dispatch:
                 dispatch(setAppErrorAC('Some error occurred'))
             }
         }
-    } catch (error) {
-        if (axios.isAxiosError<AxiosError<{ message: string }>>(error)) {
-            const err = error.response ? error.response.data.message : error.message
-            dispatch(setAppErrorAC(err))
-            dispatch(setAppStatusAC('failed'))
+    } catch (err) {
+        if (axios.isAxiosError<AxiosError<{ message: string }>>(err)) {
+            const error = err.response ? err.response.data.message : err.message
+            handleServerNetworkError(dispatch, error)
         }
     }
 }
