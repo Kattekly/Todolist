@@ -69,7 +69,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<AppActio
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error) => {
-            handleServerNetworkError(error, dispatch)
+            handleServerNetworkError(dispatch, error)
         })
 }
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<AppActionsType>) => {
@@ -81,7 +81,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error) => {
-            handleServerNetworkError(error, dispatch)
+            handleServerNetworkError(dispatch, error)
         })
 }
 
@@ -146,10 +146,9 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                     }
                 }
             })
-            .catch((error: AxiosError<{ message: string }>) => {
-                const err = error.response ? error.response.data.message : error.message
-                dispatch(setAppErrorAC(err))
-                dispatch(setAppStatusAC('failed'))
+            .catch((err: AxiosError<{ message: string }>) => {
+                const error = err.response ? err.response.data.message : err.message
+                handleServerNetworkError(dispatch, error)
             })
     }
 
