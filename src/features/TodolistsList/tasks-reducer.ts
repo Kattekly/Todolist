@@ -97,45 +97,30 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
 
 export const addTaskTC = (title: string, todolistId: string) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
-    todolistsAPI.createTask(todolistId, title)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                const task = res.data.data.item
-                const action = addTaskAC(task)
-                dispatch(action)
-                dispatch(setAppStatusAC('succeeded'))
-            } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
+
+    try {
+        todolistsAPI.createTask(todolistId, title)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    const task = res.data.data.item
+                    const action = addTaskAC(task)
+                    dispatch(action)
+                    dispatch(setAppStatusAC('succeeded'))
                 } else {
-                    dispatch(setAppErrorAC('Some error occurred'))
+                    if (res.data.messages.length) {
+                        dispatch(setAppErrorAC(res.data.messages[0]))
+                    } else {
+                        dispatch(setAppErrorAC('Some error occurred'))
+                    }
                 }
-
-            }
-            //     handleServerAppError(res.data, dispatch)
-            //
-        })
-        .catch((error) => {
-            if (axios.isAxiosError<AxiosError<{ message: string }>>(error)) {
-                const err = error.response ? error.response.data.message : error.message
-                dispatch(setAppErrorAC(err))
-                dispatch(setAppStatusAC('failed'))
-            }
-
-            // if(axios.isAxiosError(error)) {
-            //     const err = error as Error | AxiosError<{message: string}>
-            //     let test = ''
-            //     if(err.message) {
-            //         test = err.message
-            //     }else {
-            //         test = err
-            //     }
-            // }
-
-            /*handleServerNetworkError(error, dispatch)
-                dispatch(setAppStatusAC('idle'))*/
-
-        })
+            })
+    } catch (error) {
+        if (axios.isAxiosError<AxiosError<{ message: string }>>(error)) {
+            const err = error.response ? error.response.data.message : error.message
+            dispatch(setAppErrorAC(err))
+            dispatch(setAppStatusAC('failed'))
+        }
+    }
 }
 
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
