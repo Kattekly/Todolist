@@ -15,7 +15,7 @@ import {Menu} from '@mui/icons-material';
 import {LinearProgress} from "@mui/material";
 import {useAppSelector} from "./store";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Login} from "../features/Login/Logon";
 
 
@@ -25,7 +25,7 @@ function App() {
     const status = useAppSelector((state) => state.app.status)
 
     return (
-        <BrowserRouter>
+
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
@@ -41,12 +41,13 @@ function App() {
                     {status === 'loading' && <LinearProgress color="secondary"/>}
                 </AppBar>
                 <Container fixed>
-                    <Route path='/' element={<TodolistsList/>}/>
-                    <Route path='/login' element={<Login/>}/>
-
+                        {/*<Route path='/' element={<TodolistsList demo={demo}/>}/>
+                        <Route path='/login' element={<Login/>}/>*/}
+                        <TodolistsList/>
+                        <Login/>
                 </Container>
             </div>
-        </BrowserRouter>
+
     )
 }
 
