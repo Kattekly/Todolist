@@ -41,8 +41,6 @@ function App() {
                     {status === 'loading' && <LinearProgress color="secondary"/>}
                 </AppBar>
                 <Container fixed>
-                        {/*<Route path='/' element={<TodolistsList demo={demo}/>}/>
-                        <Route path='/login' element={<Login/>}/>*/}
                         <TodolistsList/>
                         <Login/>
                 </Container>
