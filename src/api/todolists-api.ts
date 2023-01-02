@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import {RequestStatusType} from "../app/app-reducer";
 
 const instance = axios.create({
