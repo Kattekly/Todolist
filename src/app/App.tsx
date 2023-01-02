@@ -15,7 +15,6 @@ import {Menu} from '@mui/icons-material';
 import {LinearProgress} from "@mui/material";
 import {useAppSelector} from "./store";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Login} from "../features/Login/Logon";
 
 
