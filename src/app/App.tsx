@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 
-// You can learn about the difference by reading this guide on minimizing bundle size.
+
 
 
 import AppBar from '@mui/material/AppBar';
