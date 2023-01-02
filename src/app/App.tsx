@@ -3,7 +3,7 @@ import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 
 // You can learn about the difference by reading this guide on minimizing bundle size.
-// https://mui.com/guides/minimizing-bundle-size/
+
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
