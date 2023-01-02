@@ -20,8 +20,6 @@ import {Login} from "../features/Login/Logon";
 
 
 function App() {
-
-    /*   const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)*/
     const status = useAppSelector((state) => state.app.status)
 
     return (
