@@ -10,35 +10,47 @@ const slice = createSlice({
     name: 'app',
     initialState: initialState,
     reducers: {
-        removeTodolistAC(state, action: PayloadAction<{}>){},
-        addTodolistAC(state, action: PayloadAction<{}>) {},
-        changeTodolistTitleAC(state, action: PayloadAction<{}>){},
-        changeTodolistFilterAC(state, action: PayloadAction<{}>){},
-        changeTodolistEntityStatusAC(state, action: PayloadAction<{}>){},
-        setTodolistsAC(state, action: PayloadAction<{}>){}
+        removeTodolistAC(state, action: PayloadAction<{ id: string }>) {
+            state.filter(tl => tl.id != action.payload.id)
+        },
+        addTodolistAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
+        },
+        changeTodolistTitleAC(state, action: PayloadAction<{ id: string, title: string }>) {
+            state.map(tl => tl.id === action.payload.id ? {...tl, title: action.payload.title} : tl)
+        },
+        changeTodolistFilterAC(state, action: PayloadAction<{ id: string, filter: FilterValuesType }>) {
+            state.map(tl => tl.id === action.payload.id ? {...tl, filter: action.payload.filter} : tl)
+        },
+        changeTodolistEntityStatusAC(state, action: PayloadAction<{ id: string, status: RequestStatusType }>) {
+            state.map(tl => tl.id === action.payload.id ? {...tl, entityStatus: action.payload.status} : tl)
+        },
+        setTodolistsAC(state, action: PayloadAction<{ todolists: Array<TodolistType> }>) {
+            action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
+        }
     }
 })
 
 
-export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
-    switch (action.type) {
-        case 'REMOVE-TODOLIST':
-            return state.filter(tl => tl.id != action.id)
-        case 'ADD-TODOLIST':
-            return [{...action.todolist, filter: 'all', entityStatus: 'idle'}, ...state]
+export const todolistsReducer = slice.reducer
+/*  (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
+  switch (action.type) {
+      case 'REMOVE-TODOLIST':
+          return state.filter(tl => tl.id != action.id)
+      case 'ADD-TODOLIST':
+          return [{...action.todolist, filter: 'all', entityStatus: 'idle'}, ...state]
 
-        case 'CHANGE-TODOLIST-TITLE':
-            return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
-        case 'CHANGE-TODOLIST-FILTER':
-            return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
-        case 'CHANGE-TODOLIST-ENTITY-STATUS':
-            return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
-        case 'SET-TODOLISTS':
-            return action.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
-        default:
-            return state
-    }
-}
+      case 'CHANGE-TODOLIST-TITLE':
+          return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
+      case 'CHANGE-TODOLIST-FILTER':
+          return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
+      case 'CHANGE-TODOLIST-ENTITY-STATUS':
+          return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
+      case 'SET-TODOLISTS':
+          return action.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
+      default:
+          return state
+  }
+}*/
 
 // actions
 export const removeTodolistAC = (id: string) => ({type: 'REMOVE-TODOLIST', id} as const)
@@ -53,7 +65,11 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => 
     id,
     filter
 } as const)
-export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status } as const)
+export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
+    type: 'CHANGE-TODOLIST-ENTITY-STATUS',
+    id,
+    status
+} as const)
 export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)
 
 // thunks
