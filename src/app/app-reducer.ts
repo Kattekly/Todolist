@@ -20,9 +20,8 @@ const slice = createSlice({
 })
 
 export const appReducer = slice.reducer
-export const setAppInitializedAC = slice.actions.setAppInitializedAC
-export const setAppStatusAC = slice.actions.setAppStatusAC
-export const setAppErrorAC = slice.actions.setAppErrorAC
+
+export const {setAppInitializedAC, setAppStatusAC, setAppErrorAC} = slice.actions
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -34,10 +33,6 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
     // true когда приложение проинициализировалось (проверили юзера, настройки получили и т.д.)
     isInitialized: boolean
 }*/
-
-/*export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
-export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
-export const setAppInitializedAC = (value: boolean) => ({type: 'APP/SET-IS-INITIALIED', value} as const)*/
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
