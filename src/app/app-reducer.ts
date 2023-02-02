@@ -1,25 +1,25 @@
 import {Dispatch} from 'redux'
 import {authAPI} from '../api/todolists-api'
 import {setIsLoggedInAC} from '../features/Login/auth-reducer'
+import {createSlice} from "@reduxjs/toolkit";
 
-const initialState: InitialStateType = {
+const initialState = {
     status: 'idle',
     error: null,
     isInitialized: false
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    switch (action.type) {
-        case 'APP/SET-STATUS':
-            return {...state, status: action.status}
-        case 'APP/SET-ERROR':
-            return {...state, error: action.error}
-        case 'APP/SET-IS-INITIALIED':
-            return {...state, isInitialized: action.value}
-        default:
-            return {...state}
+const slice = createSlice({
+    name: 'app',
+    initialState: initialState,
+    reducers: {
+        setAppStatusAC(state, action: any) {state.status = action.payload.status},
+        setAppErrorAC(state, action: any) {state.error = action.payload.error},
+        setAppInitializedAC(state, action: any) {state.isInitialized = action.payload.value}
     }
-}
+})
+
+export const appReducer = slice.reducer
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
