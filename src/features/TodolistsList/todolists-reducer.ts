@@ -2,8 +2,23 @@ import {todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {RequestStatusType, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from '../../app/app-reducer'
 import {handleServerNetworkError} from '../../utils/error-utils'
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: Array<TodolistDomainType> = []
+
+const slice = createSlice({
+    name: 'app',
+    initialState: initialState,
+    reducers: {
+        removeTodolistAC(state, action: PayloadAction<{}>){},
+        addTodolistAC(state, action: PayloadAction<{}>) {},
+        changeTodolistTitleAC(state, action: PayloadAction<{}>){},
+        changeTodolistFilterAC(state, action: PayloadAction<{}>){},
+        changeTodolistEntityStatusAC(state, action: PayloadAction<{}>){},
+        setTodolistsAC(state, action: PayloadAction<{}>){}
+    }
+})
+
 
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
@@ -38,8 +53,7 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => 
     id,
     filter
 } as const)
-export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
-    type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status } as const)
+export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status } as const)
 export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)
 
 // thunks
