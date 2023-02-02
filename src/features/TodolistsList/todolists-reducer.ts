@@ -14,7 +14,7 @@ const slice = createSlice({
             state.filter(tl => tl.id != action.payload.id)
         },
         addTodolistAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
-            state.push({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
+            state.unshift({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
         },
         changeTodolistTitleAC(state, action: PayloadAction<{ id: string, title: string }>) {
             state.map(tl => tl.id === action.payload.id ? {...tl, title: action.payload.title} : tl)
