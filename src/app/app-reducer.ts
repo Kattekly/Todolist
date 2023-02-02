@@ -3,7 +3,7 @@ import {authAPI} from '../api/todolists-api'
 import {setIsLoggedInAC} from '../features/Login/auth-reducer'
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-const initialState = {
+const initialState: InitialStateType = {
     status: 'idle',
     error: null,
     isInitialized: false
@@ -14,8 +14,8 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         setAppStatusAC(state, action: PayloadAction<{status: RequestStatusType}>) {state.status = action.payload.status},
-        setAppErrorAC(state, action: PayloadAction<{error: string | null}>) {state.error= action.payload.error},
-        setAppInitializedAC(state, action: PayloadAction<{ value: boolean }>) {state.isInitialized = action.payload.value}
+        setAppErrorAC(state, action: PayloadAction<{error: string | null}>) {state.error = action.payload.error},
+        setAppInitializedAC(state, action: PayloadAction<{ isInitialized: boolean }>) {state.isInitialized = action.payload.isInitialized}
     }
 })
 
@@ -25,14 +25,14 @@ export const {setAppInitializedAC, setAppStatusAC, setAppErrorAC} = slice.action
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-/*export type InitialStateType = {
+export type InitialStateType = {
     // происходит ли сейчас взаимодействие с сервером
     status: RequestStatusType
     // если ошибка какая-то глобальная произойдёт - мы запишем текст ошибки сюда
     error: string | null
     // true когда приложение проинициализировалось (проверили юзера, настройки получили и т.д.)
     isInitialized: boolean
-}*/
+}
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
@@ -40,17 +40,10 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC({value: true}));
         } else {
         }
-        dispatch(setAppInitializedAC({value: true}));
+        dispatch(setAppInitializedAC({isInitialized: true}));
     })
 }
 
-/*
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 
-
-type ActionsType =
-    | SetAppErrorActionType
-    | SetAppStatusActionType
-    | ReturnType<typeof setAppInitializedAC>
-*/
