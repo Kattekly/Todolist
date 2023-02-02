@@ -32,6 +32,17 @@ const slice = createSlice({
 
 
 export const todolistsReducer = slice.reducer
+
+export const {
+    removeTodolistAC,
+    addTodolistAC,
+    changeTodolistTitleAC,
+    changeTodolistFilterAC,
+    changeTodolistEntityStatusAC,
+    setTodolistsAC
+} = slice.actions
+
+
 /*  (state: Array<TodolistDomainType> = initialState, action: ActionsType): Array<TodolistDomainType> => {
   switch (action.type) {
       case 'REMOVE-TODOLIST':
@@ -53,7 +64,7 @@ export const todolistsReducer = slice.reducer
 }*/
 
 // actions
-export const removeTodolistAC = (id: string) => ({type: 'REMOVE-TODOLIST', id} as const)
+/*export const removeTodolistAC = (id: string) => ({type: 'REMOVE-TODOLIST', id} as const)
 export const addTodolistAC = (todolist: TodolistType) => ({type: 'ADD-TODOLIST', todolist} as const)
 export const changeTodolistTitleAC = (id: string, title: string) => ({
     type: 'CHANGE-TODOLIST-TITLE',
@@ -70,7 +81,7 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
     id,
     status
 } as const)
-export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)
+export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)*/
 
 // thunks
 export const fetchTodolistsTC = () => {
@@ -78,7 +89,7 @@ export const fetchTodolistsTC = () => {
         dispatch(setAppStatusAC({status: 'loading'}))
         todolistsAPI.getTodolists()
             .then((res) => {
-                dispatch(setTodolistsAC(res.data))
+                dispatch(setTodolistsAC({todolists: res.data}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
             })
             .catch(error => {
@@ -91,10 +102,10 @@ export const removeTodolistTC = (todolistId: string) => {
         //изменим глобальный статус приложения, чтобы вверху полоса побежала
         dispatch(setAppStatusAC({status: 'loading'}))
         //изменим статус конкретного тудулиста, чтобы он мог задизеблить что надо
-        dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
+        dispatch(changeTodolistEntityStatusAC({id: todolistId, status: 'loading'}))
         todolistsAPI.deleteTodolist(todolistId)
             .then((res) => {
-                dispatch(removeTodolistAC(todolistId))
+                dispatch(removeTodolistAC({id: todolistId}))
                 //скажем глобально приложению, что асинхронная операция завершена
                 dispatch(setAppStatusAC({status: 'succeeded'}))
             })
@@ -105,7 +116,7 @@ export const addTodolistTC = (title: string) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         todolistsAPI.createTodolist(title)
             .then((res) => {
-                dispatch(addTodolistAC(res.data.data.item))
+                dispatch(addTodolistAC({todolist: res.data.data.item}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
             })
     }
@@ -114,7 +125,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
         todolistsAPI.updateTodolist(id, title)
             .then((res) => {
-                dispatch(changeTodolistTitleAC(id, title))
+                dispatch(changeTodolistTitleAC({id: id, title: title}))
             })
     }
 }
@@ -123,6 +134,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>;
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>;
 export type SetTodolistsActionType = ReturnType<typeof setTodolistsAC>;
+
 type ActionsType =
     | RemoveTodolistActionType
     | AddTodolistActionType
@@ -130,9 +142,11 @@ type ActionsType =
     | ReturnType<typeof changeTodolistFilterAC>
     | SetTodolistsActionType
     | ReturnType<typeof changeTodolistEntityStatusAC>
+
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
     entityStatus: RequestStatusType
 }
+
 type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>
