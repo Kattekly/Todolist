@@ -10,6 +10,7 @@ import {appReducer} from '../../app/app-reducer'
 import thunkMiddleware from 'redux-thunk'
 import {authReducer} from "../../features/Login/auth-reducer";
 import {configureStore} from "@reduxjs/toolkit";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 
 const rootReducer: RootReducerType = combineReducers({
     tasks: tasksReducer,
