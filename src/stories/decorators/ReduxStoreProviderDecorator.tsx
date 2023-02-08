@@ -73,3 +73,8 @@ export const ReduxStoreProviderDecorator = (storyFn: any) => (
     <Provider
         store={storyBookStore}>{storyFn()}
     </Provider>)
+
+export const BrowserRouterDecorator = (storyFn: any) => (
+    <HashRouter>
+        {storyFn()}
+    </HashRouter>)
