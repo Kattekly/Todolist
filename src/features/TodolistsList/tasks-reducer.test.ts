@@ -110,9 +110,7 @@ test('new array should be added when new todolist is added', () => {
 });
 test('propertry with todolistId should be deleted', () => {
     const action = removeTodolistAC({id: "todolistId2"});
-
     const endState = tasksReducer(startState, action)
-
     const keys = Object.keys(endState);
 
     expect(keys.length).toBe(1);
