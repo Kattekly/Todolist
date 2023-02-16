@@ -173,12 +173,24 @@ export const UpdateTask = () => {
 
     return <div> {JSON.stringify(state)}
         <div>
-            <input placeholder={'taskId'} value={taskId} onChange={(e) => {setTaskId(e.currentTarget.value) }}/>
-            <input placeholder={'todolistId'} value={todolistId} onChange={(e) => {setTodolistId(e.currentTarget.value) }}/>
-            <input placeholder={'Task Title'} value={title} onChange={(e) => { setTitle(e.currentTarget.value)}}/>
-            <input placeholder={'Description'} value={description} onChange={(e) => { setDescription(e.currentTarget.value)}}/>
-            <input placeholder={'status'} value={status} type="number" onChange={(e) => { setStatus(+e.currentTarget.value)}}/>
-            <input placeholder={'priority'} value={priority} type="number" onChange={(e) => { setPriority(+e.currentTarget.value)}}/>
+            <input placeholder={'taskId'} value={taskId} onChange={(e) => {
+                setTaskId(e.currentTarget.value)
+            }}/>
+            <input placeholder={'todolistId'} value={todolistId} onChange={(e) => {
+                setTodolistId(e.currentTarget.value)
+            }}/>
+            <input placeholder={'Task Title'} value={title} onChange={(e) => {
+                setTitle(e.currentTarget.value)
+            }}/>
+            <input placeholder={'Description'} value={description} onChange={(e) => {
+                setDescription(e.currentTarget.value)
+            }}/>
+            <input placeholder={'status'} value={status} type="number" onChange={(e) => {
+                setStatus(+e.currentTarget.value)
+            }}/>
+            <input placeholder={'priority'} value={priority} type="number" onChange={(e) => {
+                setPriority(+e.currentTarget.value)
+            }}/>
             <button onClick={createTask}>update task</button>
         </div>
     </div>
