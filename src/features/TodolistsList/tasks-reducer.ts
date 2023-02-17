@@ -8,7 +8,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: TasksStateType = {}
 
-export const fetchTasksTC = createAsyncThunk('tasks/fetchTasksTC', (todolistId: string, thunkAPI) => {
+export const fetchTasksTC = createAsyncThunk('tasks/fetchTasks', (todolistId: string, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     return todolistsAPI.getTasks(todolistId)
         .then((res) => {
@@ -17,6 +17,24 @@ export const fetchTasksTC = createAsyncThunk('tasks/fetchTasksTC', (todolistId: 
             return {tasks, todolistId}
         })
 })
+
+
+export const removeTaskTC = createAsyncThunk('tasks/removeTask', (param: { taskId: string, todolistId: string }, thunkAPI) => {
+    return todolistsAPI.deleteTask(param.todolistId, param.taskId)
+        .then(res => {
+            const action = removeTaskAC({taskId: param.taskId, todolistId: param.todolistId})
+            thunkAPI.dispatch(action)
+        })
+})
+
+/*export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
+    todolistsAPI.deleteTask(todolistId, taskId)
+        .then(res => {
+            const action = removeTaskAC({taskId, todolistId})
+            dispatch(action)
+        })
+}*/
+
 
 const slice = createSlice({
     name: 'tasks',
@@ -61,13 +79,7 @@ export const tasksReducer = slice.reducer
 export const {removeTaskAC, addTaskAC, updateTaskAC} = slice.actions
 
 // thunks
-export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
-    todolistsAPI.deleteTask(todolistId, taskId)
-        .then(res => {
-            const action = removeTaskAC({taskId, todolistId})
-            dispatch(action)
-        })
-}
+
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     todolistsAPI.createTask(todolistId, title)
