@@ -44,7 +44,6 @@ export const addTaskTC = createAsyncThunk('tasks/removeTask', (param: { title: s
         })
 })
 
-
 const slice = createSlice({
     name: 'tasks',
     initialState: initialState,
