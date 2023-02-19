@@ -127,7 +127,6 @@ test('empty arrays should be added when we set todolists', () => {
     })
 
     const endState = tasksReducer({}, action)
-
     const keys = Object.keys(endState)
 
     expect(keys.length).toBe(2)
