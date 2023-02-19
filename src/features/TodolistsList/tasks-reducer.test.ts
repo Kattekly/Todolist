@@ -37,7 +37,10 @@ beforeEach(() => {
 });
 
 test('correct task should be deleted from correct array', () => {
-    const action = removeTaskTC.fulfilled({taskId: "2", todolistId: "todolistId2"}, '', {taskId: 'taskId', todolistId: 'todolistId'});
+    const action = removeTaskTC.fulfilled({taskId: "2", todolistId: "todolistId2"}, '', {
+        taskId: 'taskId',
+        todolistId: 'todolistId'
+    });
     const endState = tasksReducer(startState, action)
 
     expect(endState["todolistId1"].length).toBe(3);
@@ -132,7 +135,10 @@ test('empty arrays should be added when we set todolists', () => {
     expect(endState['2']).toBeDefined()
 })
 test('tasks should be added for todolist', () => {
-    const action = fetchTasksTC.fulfilled({tasks: startState["todolistId1"], todolistId: "todolistId1"}, '', 'todolistId');
+    const action = fetchTasksTC.fulfilled({
+        tasks: startState["todolistId1"],
+        todolistId: "todolistId1"
+    }, '', 'todolistId');
 
     const endState = tasksReducer({
         "todolistId2": [],
