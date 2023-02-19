@@ -133,6 +133,7 @@ test('empty arrays should be added when we set todolists', () => {
     expect(endState['1']).toBeDefined()
     expect(endState['2']).toBeDefined()
 })
+
 test('tasks should be added for todolist', () => {
     const action = fetchTasksTC.fulfilled({
         tasks: startState["todolistId1"],
