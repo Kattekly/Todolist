@@ -5,7 +5,6 @@ import {TodolistType} from '../../api/todolists-api'
 test('ids should be equals', () => {
     const startTasksState: TasksStateType = {};
     const startTodolistsState: Array<TodolistDomainType> = [];
-
     let todolist: TodolistType = {
         title: 'new todolist',
         id: 'any id',
