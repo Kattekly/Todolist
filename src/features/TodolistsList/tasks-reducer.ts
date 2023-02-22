@@ -26,7 +26,7 @@ export const removeTaskTC = createAsyncThunk('tasks/removeTask', (param: { taskI
 })
 
 export const addTaskTC = createAsyncThunk('tasks/removeTask', (param: { title: string, todolistId: string }, thunkAPI) => {
-    thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
+  /*  thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     todolistsAPI.createTask({todolistId: param.todolistId, title: param.title})
         .then(res => {
             if (res.data.resultCode === 0) {
@@ -40,7 +40,7 @@ export const addTaskTC = createAsyncThunk('tasks/removeTask', (param: { title: s
         })
         .catch((error) => {
             handleServerNetworkError(error, thunkAPI.dispatch)
-        })
+        })*/
 })
 
 const slice = createSlice({
