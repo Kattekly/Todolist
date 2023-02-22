@@ -87,7 +87,6 @@ export const tasksReducer = slice.reducer
 export const {addTaskAC, updateTaskAC} = slice.actions
 
 // thunks
-
 export const updateTaskTC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const state = getState()
