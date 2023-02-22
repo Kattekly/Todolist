@@ -13,9 +13,11 @@ export const loginTC = createAsyncThunk('auth/login', async (data: LoginParamsTy
             return {isLoggedIn: true}
         } else {
             handleServerAppError(res.data, thunkAPI.dispatch)
+            return {isLoggedIn: false}
         }
     } catch (error) {
-        handleServerNetworkError(error, thunkAPI.dispatch)
+       /* handleServerNetworkError(error, thunkAPI.dispatch)*/
+        return {isLoggedIn: false}
     }
 })
 
@@ -31,9 +33,7 @@ const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(loginTC.fulfilled, (state, action) => {
-            if (action.payload) {
                 state.isLoggedIn = action.payload.isLoggedIn
-            }
         })
     }
 })
