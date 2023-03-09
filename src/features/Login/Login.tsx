@@ -31,14 +31,18 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: async (values, formikHelpers) => {
-          const res = await dispatch(loginTC(values));
-
-          formikHelpers.setFieldError('email', 'FakeError')
+            const action = await dispatch(loginTC(values));
+            if (loginTC.rejected.match(action)) {
+                if (action.payload?.fieldsErrors?.length) {
+                    const error = action.payload.fieldsErrors[0]
+                    formikHelpers.setFieldError(error.field, error.error)
+                }
+            }
         },
     })
 
     if (isLoggedIn) {
-        return <Redirect to={"/"} />
+        return <Redirect to={"/"}/>
     }
 
 
