@@ -4,7 +4,7 @@ import {authAPI, LoginParamsType} from '../../api/todolists-api'
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-export const loginTC = createAsyncThunk('task/login', async (data: LoginParamsType, thunkAPI) => {
+export const loginTC = createAsyncThunk('auth/login', async (data: LoginParamsType, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     const res = await authAPI.login(data)
     try {
@@ -14,10 +14,8 @@ export const loginTC = createAsyncThunk('task/login', async (data: LoginParamsTy
         } else {
             handleServerAppError(res.data, thunkAPI.dispatch)
         }
-    } catch {
-        /*  ((error) => {
-                  handleServerNetworkError(error, thunkAPI.dispatch)
-              })*/
+    } catch (error) {
+        handleServerNetworkError(error, thunkAPI.dispatch)
     }
 })
 
