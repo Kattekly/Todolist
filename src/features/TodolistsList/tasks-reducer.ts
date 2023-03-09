@@ -16,11 +16,9 @@ export const fetchTasksTC = createAsyncThunk('task/fetchTasks', async (todolistI
     return {tasks, todolistId}
 })
 
-export const removeTaskTC = createAsyncThunk('task/removeTask', (param: { taskId: string, todolistId: string }, thunkAPI) => {
-    return todolistsAPI.deleteTask(param.todolistId, param.taskId)
-        .then(res => {
-            return {taskId: param.taskId, todolistId: param.todolistId}
-        })
+export const removeTaskTC = createAsyncThunk('task/removeTask', async (param: { taskId: string, todolistId: string }, thunkAPI) => {
+    await todolistsAPI.deleteTask(param.todolistId, param.taskId)
+    return {taskId: param.taskId, todolistId: param.todolistId}
 })
 
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
