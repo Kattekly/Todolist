@@ -17,24 +17,9 @@ export const loginTC = createAsyncThunk('auth/login', async (param: LoginParamsT
         }
     } catch (error) {
         handleServerNetworkError(error, thunkAPI.dispatch)
+        return {isLoggedIn: false}
     }
 })
-
-export const loginTC_ = (data: LoginParamsType) => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC({status: 'loading'}))
-    authAPI.login(data)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC({value: true}))
-                dispatch(setAppStatusAC({status: 'succeeded'}))
-            } else {
-                handleServerAppError(res.data, dispatch)
-            }
-        })
-        .catch((error) => {
-            handleServerNetworkError(error, dispatch)
-        })
-}
 
 const slice = createSlice({
     name: 'auth',
