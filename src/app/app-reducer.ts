@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux'
 import {authAPI} from '../api/todolists-api'
 import {setIsLoggedInAC} from '../features/Login/auth-reducer'
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -13,13 +13,13 @@ const slice = createSlice({
     name: 'app',
     initialState: initialState,
     reducers: {
-        setAppStatusAC(state, action: PayloadAction<{ status: RequestStatusType }>) {
+        setAppStatusAC: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
             state.status = action.payload.status
         },
-        setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
+        setAppErrorAC: (state, action: PayloadAction<{ error: string | null }>) => {
             state.error = action.payload.error
         },
-        setAppInitializedAC(state, action: PayloadAction<{ isInitialized: boolean }>) {
+        setAppInitializedAC: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
             state.isInitialized = action.payload.isInitialized
         }
     }
@@ -27,10 +27,7 @@ const slice = createSlice({
 
 export const appReducer = slice.reducer
 
-export const {setAppInitializedAC, setAppStatusAC, setAppErrorAC} = slice.actions
-
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-
 export type InitialStateType = {
     // происходит ли сейчас взаимодействие с сервером
     status: RequestStatusType
@@ -40,13 +37,17 @@ export type InitialStateType = {
     isInitialized: boolean
 }
 
+export const {setAppErrorAC, setAppStatusAC, setAppInitializedAC} = slice.actions
+
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC({value: true}));
+            dispatch(setIsLoggedInAC({value: true}))
         } else {
+
         }
-        dispatch(setAppInitializedAC({isInitialized: true}));
+
+        dispatch(setAppInitializedAC({isInitialized: true}))
     })
 }
 
