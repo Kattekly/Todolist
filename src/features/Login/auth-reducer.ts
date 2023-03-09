@@ -19,7 +19,7 @@ const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
-export const {setIsLoggedInAC} = slice.actions
+export const {setIsLoggedInAC} = slice.actions // вместо АС
 
 // thunks
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
@@ -52,19 +52,4 @@ export const logoutTC = () => (dispatch: Dispatch) => {
         .catch((error) => {
             handleServerNetworkError(error, dispatch)
         })
-}
-
-
-const a1 = {
-    type: 'SET-IS-LOGIN-IN',
-    payload: {
-        value: true
-    }
-}
-const a2 = {
-    type: 'SET-blabal',
-    payload: {
-        user: {name: "sdsd"},
-        age: 12
-    }
 }
