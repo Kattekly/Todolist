@@ -17,7 +17,7 @@ export const loginTC = createAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType
             return {isLoggedIn: true}
         } else {
             handleServerAppError(res.data, thunkAPI.dispatch)
-            return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldErrors})
+            return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
     } catch (err) {
         const error: AxiosError = err
