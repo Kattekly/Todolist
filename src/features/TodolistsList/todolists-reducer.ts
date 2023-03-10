@@ -8,10 +8,10 @@ import {addTaskAC} from "./tasks-reducer";
 
 const initialState: Array<TodolistDomainType> = []
 
-// export const fetchTodolistsTC = createAsyncThunk('todolist/fetchTodolists', async ( thunkAPI) => {
+// export const fetchTodolistsTC = createAsyncThunk('todolist/fetchTodolists', async (param, thunkAPI) => {
 //     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
-//     const res = await todolistsAPI.getTodolists()
 //     try {
+//         const res = await todolistsAPI.getTodolists()
 //         thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
 //         return {todolists: res.data}
 //     } catch (err) {
@@ -117,7 +117,7 @@ const slice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        /* builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
+         /*builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
              return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
          });*/
         builder.addCase(removeTodolistTC.fulfilled, (state, action) => {
