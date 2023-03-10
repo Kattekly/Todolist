@@ -16,20 +16,6 @@ export const fetchTodolistsTC = createAsyncThunk('todolist/fetchTodolists', asyn
     }
 })
 
-/*export const fetchTodolistsTC_ = () => {
-    return (dispatch: Dispatch) => {
-        dispatch(setAppStatusAC({status: 'loading'}))
-        todolistsAPI.getTodolists()
-            .then((res) => {
-                dispatch(setTodolistsAC({todolists: res.data}))
-                dispatch(setAppStatusAC({status: 'succeeded'}))
-            })
-            .catch(error => {
-                handleServerNetworkError(error, dispatch)
-            })
-    }
-}*/
-
 export const removeTodolistTC = createAsyncThunk('todolist/removeTodolist', async (todolistId: string, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     thunkAPI.dispatch(changeTodolistEntityStatusAC({id: todolistId, status: 'loading'}))
@@ -67,12 +53,6 @@ const slice = createSlice({
     name: 'todolists',
     initialState: [] as Array<TodolistDomainType>,
     reducers: {
-        removeTodolistAC(state, action: PayloadAction<{ id: string }>) {
-            const index = state.findIndex(tl => tl.id === action.payload.id);
-            if (index > -1) {
-                state.splice(index, 1);
-            }
-        },
         addTodolistAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
             state.unshift({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
         },
@@ -84,9 +64,6 @@ const slice = createSlice({
             const index = state.findIndex(tl => tl.id === action.payload.id);
             state[index].entityStatus = action.payload.status;
         },
-     /*   setTodolistsAC(state, action: PayloadAction<{ todolists: Array<TodolistType> }>) {
-            return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
-        }*/
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
@@ -109,9 +86,7 @@ const slice = createSlice({
 })
 
 export const todolistsReducer = slice.reducer
-export const {
-    removeTodolistAC, addTodolistAC, changeTodolistFilterAC, changeTodolistEntityStatusAC,
-} = slice.actions
+export const {addTodolistAC, changeTodolistFilterAC, changeTodolistEntityStatusAC} = slice.actions
 
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
