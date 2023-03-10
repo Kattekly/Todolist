@@ -29,19 +29,16 @@ export const addTaskTC = createAsyncThunk('task/addTask', async (param: { title:
     try {
         if (res.data.resultCode === 0) {
             const task = res.data.data.item
-            const action = addTaskAC(task)
-            /*thunkAPI.dispatch(action)*/
             thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
-            return {action}
-
+            return task
         } else {
             handleServerAppError(res.data, thunkAPI.dispatch)
-            return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
+            return thunkAPI.rejectWithValue({})
         }
     } catch (err) {
         const error: AxiosError = err
         handleServerNetworkError(error, thunkAPI.dispatch)
-        return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined})
+        return thunkAPI.rejectWithValue({})
     }
 })
 
@@ -138,9 +135,9 @@ const slice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
-        addTaskAC(state, action: PayloadAction<TaskType>) {
+        /*addTaskAC(state, action: PayloadAction<TaskType>) {
             state[action.payload.todoListId].unshift(action.payload)
-        },
+        },*/
         updateTaskAC(state, action: PayloadAction<{ taskId: string, model: UpdateDomainTaskModelType, todolistId: string }>) {
             const tasks = state[action.payload.todolistId]
             const index = tasks.findIndex(t => t.id === action.payload.taskId)
@@ -172,7 +169,7 @@ const slice = createSlice({
             }
         });
         builder.addCase(addTaskTC.fulfilled, (state, action) => {
-            state[action.payload.action.payload.todoListId].unshift(action.payload.action.payload)
+            state[action.payload.todoListId].unshift(action.payload)
         });
     }
 })
@@ -180,7 +177,7 @@ const slice = createSlice({
 export const tasksReducer = slice.reducer
 
 // actions
-export const {addTaskAC, updateTaskAC} = slice.actions
+export const {updateTaskAC} = slice.actions
 
 // thunks
 
