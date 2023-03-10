@@ -43,21 +43,6 @@ export const removeTodolistTC = createAsyncThunk('todolist/removeTodolist', asyn
     return {id: todolistId}
 })
 
-export const removeTodolistTC_ = (todolistId: string) => {
-    return (dispatch: Dispatch) => {
-        //изменим глобальный статус приложения, чтобы вверху полоса побежала
-        dispatch(setAppStatusAC({status: 'loading'}))
-        //изменим статус конкретного тудулиста, чтобы он мог задизеблить что надо
-        dispatch(changeTodolistEntityStatusAC({id: todolistId, status: 'loading'}))
-        todolistsAPI.deleteTodolist(todolistId)
-            .then((res) => {
-                dispatch(removeTodolistAC({id: todolistId}))
-                //скажем глобально приложению, что асинхронная операция завершена
-                dispatch(setAppStatusAC({status: 'succeeded'}))
-            })
-    }
-}
-
 export const addTodolistTC = createAsyncThunk('todolist/addTodolist', async (title: string, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
     const res = await todolistsAPI.createTodolist(title)
@@ -83,16 +68,6 @@ export const changeTodolistTitleTC = createAsyncThunk('todolist/changeTodolistTi
 
 })
 
-// export const changeTodolistTitleTC_ = (id: string, title: string) => {
-//     return (dispatch: Dispatch) => {
-//         todolistsAPI.updateTodolist(id, title)
-//             .then((res) => {
-//                 dispatch(changeTodolistTitleAC({id: id, title}))
-//             })
-//     }
-// }
-
-
 const slice = createSlice({
     name: 'todolists',
     initialState: initialState,
@@ -106,10 +81,6 @@ const slice = createSlice({
         addTodolistAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
             state.unshift({...action.payload.todolist, filter: 'all', entityStatus: 'idle'})
         },
-        // changeTodolistTitleAC(state, action: PayloadAction<{ id: string, title: string }>) {
-        //     const index = state.findIndex(tl => tl.id === action.payload.id);
-        //     state[index].title = action.payload.title;
-        // },
         changeTodolistFilterAC(state, action: PayloadAction<{ id: string, filter: FilterValuesType }>) {
             const index = state.findIndex(tl => tl.id === action.payload.id);
             state[index].filter = action.payload.filter;
