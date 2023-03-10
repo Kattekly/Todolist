@@ -34,12 +34,12 @@ export const logoutTC = createAsyncThunk('auth/logout', async (param, thunkAPI) 
             thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
         } else {
             handleServerAppError(res.data, thunkAPI.dispatch)
-            return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
+            return thunkAPI.rejectWithValue({})
         }
     } catch (err) {
         const error: AxiosError = err
         handleServerNetworkError(error, thunkAPI.dispatch)
-        return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined})
+        return thunkAPI.rejectWithValue({})
     }
 })
 

@@ -32,7 +32,7 @@ function App({demo = false}: PropsType) {
 
     useEffect(() => {
         if (!demo) {
-            dispatch(initializeAppTC({}))
+            dispatch(initializeAppTC())
         }
     }, [])
 

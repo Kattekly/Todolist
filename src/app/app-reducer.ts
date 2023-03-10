@@ -2,24 +2,21 @@ import {authAPI} from '../api/todolists-api'
 import {setIsLoggedInAC} from '../features/Login/auth-reducer'
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-const initialState: InitialStateType = {
-    status: 'idle',
-    error: null,
-    isInitialized: false
-}
-
-export const initializeAppTC = createAsyncThunk('app/initializeApp', async (param: {}, thunkAPI) => {
+export const initializeAppTC = createAsyncThunk('app/initializeApp', async (param, {dispatch}) => {
     const res = await authAPI.me()
     if (res.data.resultCode === 0) {
-        thunkAPI.dispatch(setIsLoggedInAC({value: true}))
+        dispatch(setIsLoggedInAC({value: true}))
     } else {
     }
-    return {isInitialized: true}
 })
 
 const slice = createSlice({
     name: 'app',
-    initialState: initialState,
+    initialState: {
+        status: 'idle',
+        error: null,
+        isInitialized: false
+    } as InitialStateType,
     reducers: {
         setAppStatusAC: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
             state.status = action.payload.status
@@ -29,8 +26,8 @@ const slice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(initializeAppTC.fulfilled, (state, action) => {
-            state.isInitialized = action.payload.isInitialized
+        builder.addCase(initializeAppTC.fulfilled, (state) => {
+            state.isInitialized = true
         });
     }
 })
