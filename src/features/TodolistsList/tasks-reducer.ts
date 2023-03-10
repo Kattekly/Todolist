@@ -62,6 +62,43 @@ export const addTaskTC = createAsyncThunk('task/addTask', async (param: { title:
             handleServerNetworkError(error, dispatch)
         })
 }*/
+
+/*
+export const updateTaskTC = createAsyncThunk('task/updateTask', async (param: { taskId: string, model: UpdateDomainTaskModelType, todolistId: string }, thunkAPI) => {
+
+    const state = thunkAPI.getState()
+    const task = state.tasks[param.todolistId].find(t => t.id === param.taskId)
+    if (!task) {
+        //throw new Error("task not found in the state");
+        console.warn('task not found in the state')
+        return
+    }
+
+    const apiModel: UpdateTaskModelType = {
+        deadline: task.deadline,
+        description: task.description,
+        priority: task.priority,
+        startDate: task.startDate,
+        title: task.title,
+        status: task.status,
+        ...param.model
+    }
+
+    const res = await todolistsAPI.updateTask(param.todolistId, param.taskId, apiModel)
+    try {
+        if (res.data.resultCode === 0) {
+            const action = updateTaskAC({taskId, model, todolistId})
+            thunkAPI.dispatch(action)
+        } else {
+            handleServerAppError(res.data, thunkAPI.dispatch)
+        }}
+    catch (error) {
+        handleServerNetworkError(error, thunkAPI.dispatch)
+    }
+})
+
+*/
+
 export const updateTaskTC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const state = getState()
