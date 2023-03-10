@@ -5,6 +5,7 @@ import {AppRootStateType} from '../../app/store'
 import {setAppStatusAC} from '../../app/app-reducer'
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {AxiosError} from "axios";
 
 const initialState: TasksStateType = {}
 
@@ -29,17 +30,22 @@ export const addTaskTC = createAsyncThunk('task/addTask', async (param: { title:
         if (res.data.resultCode === 0) {
             const task = res.data.data.item
             const action = addTaskAC(task)
-            thunkAPI.dispatch(action)
+            /*thunkAPI.dispatch(action)*/
             thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
+            return {action}
+
         } else {
             handleServerAppError(res.data, thunkAPI.dispatch)
+            return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
-    } catch (error) {
+    } catch (err) {
+        const error: AxiosError = err
         handleServerNetworkError(error, thunkAPI.dispatch)
+        return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined})
     }
 })
 
-export const addTaskTC_ = (title: string, todolistId: string) => (dispatch: Dispatch) => {
+/*export const addTaskTC_ = (title: string, todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
@@ -55,7 +61,7 @@ export const addTaskTC_ = (title: string, todolistId: string) => (dispatch: Disp
         .catch((error) => {
             handleServerNetworkError(error, dispatch)
         })
-}
+}*/
 export const updateTaskTC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const state = getState()
@@ -127,6 +133,9 @@ const slice = createSlice({
             if (index > -1) {
                 tasks.splice(index, 1)
             }
+        });
+        builder.addCase(addTaskTC.fulfilled, (state, action) => {
+            state[action.payload.action.payload.todoListId].unshift(action.payload.action.payload)
         });
     }
 })
