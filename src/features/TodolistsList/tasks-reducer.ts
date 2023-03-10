@@ -21,7 +21,25 @@ export const removeTaskTC = createAsyncThunk('task/removeTask', async (param: { 
     return {taskId: param.taskId, todolistId: param.todolistId}
 })
 
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch) => {
+
+export const addTaskTC = createAsyncThunk('task/addTask', async (param: { title: string, todolistId: string }, thunkAPI) => {
+    thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
+    const res = await todolistsAPI.createTask(param.todolistId, param.title)
+    try {
+        if (res.data.resultCode === 0) {
+            const task = res.data.data.item
+            const action = addTaskAC(task)
+            thunkAPI.dispatch(action)
+            thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
+        } else {
+            handleServerAppError(res.data, thunkAPI.dispatch)
+        }
+    } catch (error) {
+        handleServerNetworkError(error, thunkAPI.dispatch)
+    }
+})
+
+export const addTaskTC_ = (title: string, todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
