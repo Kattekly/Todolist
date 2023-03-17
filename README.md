@@ -1,44 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Todolist application
 
-## Available Scripts
+The classic todolist application
 
-In the project directory, you can run:
+## Stack:
+- [![React][react.js]][react-url]
+- [![React-router-dom][rrd]][rrd-url]
+- [![Redux][red]][red-url]
+- [![Typescript][typescript]][typescript-url]
+- [![MaterialUI][mui]][mui-url]
+- [![Axios][axios]][axios-url]
 
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- LINKS  -->
+[react.js]: https://img.shields.io/badge/React-0769AD?style=for-the-badge&logo=react&logoColor=white
+[react-url]: https://reactjs.org/
+[red]: https://img.shields.io/badge/Redux%20-0769AD?style=for-the-badge&logo=redux&logoColor=white
+[red-url]: https://redux.js.org/
+[rrd]: https://img.shields.io/badge/React_Router_Dom-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[rrd-url]: https://reactrouter.com/en/main
+[typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[typescript-url]: https://www.typescriptlang.org/
+[mui]: https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white
+[mui-url]: https://mui.com/
+[axios]: https://img.shields.io/badge/AXIOS%20-007FFF?style=for-the-badge&logo=axios&logoColor=white
+[axios-url]: https://axios-http.com/
