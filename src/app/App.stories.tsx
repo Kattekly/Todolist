@@ -5,7 +5,7 @@ import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from '../stories/de
 import StoryRouter from 'storybook-react-router';
 
 export default {
-    title: 'Application Stories',
+    title: 'App Stories',
     component: App,
     decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator]
 }

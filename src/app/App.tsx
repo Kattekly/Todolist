@@ -11,35 +11,33 @@ import {
     Typography
 } from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {TodolistsList} from '../features/TodolistsList'
+import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
-import {useSelector} from 'react-redux'
-import {appActions} from '../features/Application'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppRootStateType} from './store'
+import {initializeAppTC, RequestStatusType} from './app-reducer'
 import {Route} from 'react-router-dom'
-import {authActions, authSelectors, Login} from '../features/Auth'
-import {selectIsInitialized, selectStatus} from '../features/Application/selectors'
-import {useActions} from '../utils/redux-utils'
+import {Login} from '../features/Login/Login'
+import {logoutTC} from '../features/Login/auth-reducer'
 
 type PropsType = {
     demo?: boolean
 }
 
 function App({demo = false}: PropsType) {
-    const status = useSelector(selectStatus)
-    const isInitialized = useSelector(selectIsInitialized)
-    const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
-
-    const {logout} = useActions(authActions)
-    const {initializeApp} = useActions(appActions)
+    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!demo) {
-            initializeApp()
+            dispatch(initializeAppTC())
         }
     }, [])
 
     const logoutHandler = useCallback(() => {
-        logout()
+        dispatch(logoutTC())
     }, [])
 
     if (!isInitialized) {
